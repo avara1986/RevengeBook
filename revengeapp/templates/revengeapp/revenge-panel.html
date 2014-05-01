@@ -1,0 +1,57 @@
+﻿{% extends "revengeapp/base.html" %}
+
+{% block content %}
+<div class="row ">
+    <div class="col-lg-12 col-md-12">
+    <h1>Revenge Panel</h1>
+	</div>
+    <div class="col-lg-3 col-md-3">
+		<h2>Send Revenge</h2>
+		<form role="form" id="formRevengeMiltestone" name="formRevengeMiltestone" action="" method="POST">
+			{% csrf_token %}
+			<div class="form-group">
+				<label for="exampleInputEmail1">Título</label>
+				<input type="text" class="form-control" name="title" id="title" placeholder="mi Usuario">
+				{{ formRevengeMiltestone.title.errors }}
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Tipo de venganza</label>
+				<select class="form-control" name="point" id="point" placeholder="Tu mensaje">
+					{% for point in revPoints %}
+						<option value="{{ point.id }}">{{ point.title }}</option>
+					{% endfor %}
+				</select>
+				{{ formRevengeMiltestone.point.errors }}
+			</div>	
+			<div class="form-group">
+				<label for="exampleInputPassword1">Afectado/amigo</label>
+				<select class="form-control" name="friend" id="friend">
+					{% for friend in friendsList %}
+						<option value="{{ friend.id }}">{{ friend.username }}</option>
+					{% endfor %}
+				</select>
+					{{ formRevengeMiltestone.point.errors }}
+			</div>			  
+			<div class="form-group">
+				<label for="exampleInputPassword1">Comentario</label>
+				<textarea class="form-control" name="comment" id="comment" placeholder="Tu mensaje"></textarea>
+				{{ formRevengeMiltestone.comment.errors }}
+			</div>
+			<button type="submit" class="btn btn-default">Enviar venganza</button>
+		</form>
+    </div>
+    <div class="col-lg-9 col-md-9">
+    <p>
+    Minions ipsum ti aamoo! Voluptate velit aaaaaah consequat. Ex exercitation laboris jeje aliqua exercitation ex tatata bala tu nostrud. Jiji tempor sed bananaaaa aaaaaah enim minim belloo! Enim. Cillum bee do bee do bee do aliqua nostrud duis baboiii qui baboiii. Officia elit enim incididunt et daa incididunt aute. Para tu magna chasy reprehenderit exercitation voluptate commodo minim belloo! Officia hana dul sae.
+    </p>
+    <p>
+	{% for milestone in milestones %}
+	<h3> Para {{ milestone.affected.username }}</h3>
+	<blockquote>
+		<img src="{{ MEDIA_URL }}{{ milestone.point.image }}" style="width:95px"/>Comment: {{ milestone.comment }} 
+	</blockquote>
+	{% endfor %}
+	</p>
+	</div>	
+</div>
+{% endblock %}
