@@ -65,8 +65,7 @@ def search_friend(request):
     searchFriend = request.POST.get("searchFriendNavBar","")
     if len(searchFriend) == 0:
         return HttpResponseRedirect(reverse('RevengePanel'))
-
-    friends = User.objects.filter(username=searchFriend).order_by('-username')
+    friends = User.objects.filter(username__contains=searchFriend).order_by('-username')
     return render_to_response('revengeapp/search-friend.html', {
                                'searchFriend': searchFriend,
                                'searchFriendList': friends,

@@ -59,7 +59,7 @@ def search_friend(request):
                     'friends': []}
     if 'searchFriend' in request.POST:
         searchFriend = request.POST.get("searchFriend")
-        SF = User.objects.filter(username=searchFriend).order_by('-username')
+        SF = User.objects.filter(username__contains=searchFriend).order_by('-username')
         #import ipdb; ipdb.set_trace()
         jsonresponse = {
              'response': True,
@@ -85,7 +85,7 @@ def search_my_friend(request):
                     'friends': []}
     if 'searchFriend' in request.POST:
         searchFriend = request.POST.get("searchFriend")
-        SF = User.objects.filter(username=searchFriend).order_by('-username')
+        SF = User.objects.filter(username__contains=searchFriend).order_by('-username')
         #import ipdb; ipdb.set_trace()
         jsonresponse = {
              'response': True,
