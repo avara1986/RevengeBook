@@ -4,10 +4,12 @@ from django.db.models.query import QuerySet
 from django.http import HttpResponse
 from django.utils.simplejson import dumps, loads, JSONEncoder
 
-from revengeapp.models import User
+from revengeapp.forms import RevengeMilestoneForm, AddFriendForm
+from revengeapp.models import User, revengeMilestone, revengePoint
 
 
-#extend simplejson to allow serializing django queryset objects directly
+# extend simplejson to allow serializing django queryset objects directly
+# Thanks to: chriszweber. https://djangosnippets.org/snippets/2656/
 class DjangoJSONEncoder(JSONEncoder):
     def default(self, obj):
         if isinstance(obj, QuerySet):
@@ -29,6 +31,29 @@ def add_friend(request):
 
 
 @login_required
+def add_milestone(request):
+    user = request.user
+    jsonresponse = {'response': "error"}
+    data = None
+    #import ipdb; ipdb.set_trace()
+    if request.method == 'POST':
+        data = request.POST
+    form = RevengeMilestoneForm(data=data)
+    if form.is_valid():
+        friend = User.objects.get(id=request.POST.get("friendId", ""))
+        point = revengePoint.objects.get(id=request.POST.get("point", ""))
+        obRevengeMilestone = revengeMilestone.objects.create(owner=user,
+                                                 affected=friend, point=point)
+        obRevengeMilestone.comment = request.POST.get("comment", "")
+        obRevengeMilestone.save()
+        jsonresponse = {'response': True}
+
+    json = dumps(jsonresponse, cls=DjangoJSONEncoder)
+    return HttpResponse(json)
+
+
+#TODO: search_friend y search_my_friend could be merged
+@login_required
 def search_friend(request):
     jsonresponse = {'response': "error",
                     'friends': []}
@@ -40,6 +65,33 @@ def search_friend(request):
              'response': True,
              'friends': [],
              }
+        # Loop to not send all data about an user
+        for friend in SF:
+            jsonresponse['friends'].append({
+                                    'id': friend.pk,
+                                    'username': friend.username,
+                                    'first_name': friend.first_name,
+                                    'last_name': friend.last_name,
+                                    'email': friend.email
+                                    })
+
+    json = dumps(jsonresponse, cls=DjangoJSONEncoder)
+    return HttpResponse(json)
+
+
+@login_required
+def search_my_friend(request):
+    jsonresponse = {'response': "error",
+                    'friends': []}
+    if 'searchFriend' in request.POST:
+        searchFriend = request.POST.get("searchFriend")
+        SF = User.objects.filter(username=searchFriend).order_by('-username')
+        #import ipdb; ipdb.set_trace()
+        jsonresponse = {
+             'response': True,
+             'friends': [],
+             }
+        # Loop to not send all data about an user
         for friend in SF:
             jsonresponse['friends'].append({
                                     'id': friend.pk,

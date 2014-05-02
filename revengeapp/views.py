@@ -7,8 +7,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 
-from revengeapp.forms import SignInForm, SignUpForm, RevengeMilestoneForm, AddFriendForm
-from revengeapp.models import User, revengePoint, revengeMilestone
+from revengeapp.forms import SignInForm, SignUpForm
+from revengeapp.models import User, revengeMilestone
 # Create your views here.
 
 
@@ -49,25 +49,11 @@ def sign_up(request):
 
 
 @login_required
-def revengePanel(request):
+def revenge_panel(request):
     user = request.user
-    data = None
-    if request.method == 'POST':
-        data = request.POST
-    form = RevengeMilestoneForm(data=data)
-    if form.is_valid():
-        friend = User.objects.get(id=request.POST.get("friend", ""))
-        user = User.objects.get(id=request.session['member_id'])
-        point = revengePoint.objects.get(id=request.POST.get("point", ""))
-        obRevengeMilestone = revengeMilestone.objects.create(owner=user,
-                                                 affected=friend, point=point)
-        obRevengeMilestone.comment = request.POST.get("comment", "")
-        obRevengeMilestone.save()
 
     milestones = revengeMilestone.objects.filter(owner=user).order_by('-milestone_date')
     return render_to_response('revengeapp/revenge-panel.html', {
-                               'test': 'prueba',
-                               'formRevengeMiltestone': form,
                                'friendsList': user.friends.all(),
                                'milestones': milestones,
                                },
@@ -76,7 +62,7 @@ def revengePanel(request):
 
 @login_required
 def search_friend(request):
-    searchFriend = request.POST.get("searchFriend")
+    searchFriend = request.POST.get("searchFriendNavBar","")
     if len(searchFriend) == 0:
         return HttpResponseRedirect(reverse('RevengePanel'))
 

@@ -1,4 +1,4 @@
-// Django CSRF framework
+// Thanks to: chriszweber. https://djangosnippets.org/snippets/2656/
 $(document).ajaxSend(function(event, xhr, settings) {
 	function getCookie(name) {
 		var cookieValue = null;
@@ -35,6 +35,36 @@ $(document).ajaxSend(function(event, xhr, settings) {
 		xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
 	}
 });
+
+
+function addMilestone(){
+	var _data = getFields('formRevengeMiltestone');
+	$('#formErrorGeneric').css('display','none');
+    if(_data!=null){
+    	$.ajax('/kwsn/add-milestone/', {
+	    	type: 'POST',
+	    	data: _data,
+	    	dataType: 'json'
+    	})
+    	.success(function(data) {
+    		console.log(data.response)
+    		if(data.response==true) {
+    			window.location.replace(window.location.href+'?result_add_milestone=ok');
+    			// TODO
+    			// Reload Milestone list layer by AJAX
+    		}
+    	})
+    	.fail(function() { console.log("lookup error"); });
+    }else{
+    	$('#formErrorGeneric').css('display','block');
+    }
+    return false;
+}
+$('#sendMilestone').click(function() {
+	addMilestone();
+});
+
+
 function searchFriend(sectionLoad){
 	var searchFriend = $('#'+sectionLoad).val();
 	
@@ -42,7 +72,7 @@ function searchFriend(sectionLoad){
 		searchFriend: searchFriend
 	}, dataType: 'json'})
 	.done(function(data) {
-		console.log(data.response)
+		//console.log(data.response)
 		if(data.response==true) {
 			//console.log(data.friends);
 			var resultSeach = "";
@@ -61,7 +91,186 @@ function searchFriend(sectionLoad){
 		}
 	})
 	.fail(function() { console.log("lookup error"); });
+	return false;
 }
 $('#searchFriendNavBar').keyup(function() {
 	searchFriend('searchFriendNavBar');
 });
+
+
+function searchMyFriend(sectionLoad){
+	var searchFriend = $('#'+sectionLoad).val();
+	
+	$.ajax('/kwsn/search-my-friend/', {type: 'POST', data: {
+		searchFriend: searchFriend
+	}, dataType: 'json'})
+	.done(function(data) {
+		console.log(data.response)
+		if(data.response==true) {
+			var resultSeach = "";
+			var idSelected = $('#friendId').val();
+			var classSelected = "";
+			$.each(data.friends, function(i, friend){
+				if(idSelected == friend.id){
+					classSelected='class="alert-success"'
+				}
+				resultSeach += '<li id="searchFriendFormRevenge_'+friend.id+'" '+classSelected+'><a href="#" onclick="selectAddFriend(\''+friend.id+'\'); return false;">'+friend.username+'</a></li>';
+				console.log(friend.id);
+				console.log(friend.username);
+				console.log(friend.first_name);
+				console.log(friend.last_name);
+				console.log(friend.email);
+			});
+			//resultSeach += '<li class="divider"></li>';
+			$('#'+sectionLoad+'Menu').html(resultSeach);
+			$('#'+sectionLoad+'Menu').css('display','block');
+			$('#'+sectionLoad+'Show').dropdown('toggle');
+		}
+	})
+	.fail(function() { console.log("lookup error"); });
+	return false;
+}
+$('#searchFriendFormRevenge').keyup(function() {
+	searchMyFriend('searchFriendFormRevenge');
+});
+function selectAddFriend(id){
+	$('#searchFriendFormRevengeMenu').css('display','none');
+	$('#friendId').val(id)
+	$('#searchFriendFormRevenge_'+id).addClass();
+}
+
+/**
+ * Aux functions to validate Form fields
+ * 
+ */
+
+/*
+ * getFields
+ * Guarda en un Array los campos de un formulario
+ * */
+function getFields(form, validate){
+	var $form=$('#'+form),
+		focusMe=[];
+	if(validate===undefined) validate=true;
+	if($form){
+		var values={},
+			valid=true;
+		$form.find(":input").each(function(index,el){
+			if(this.type==="radio"){
+				if(this.checked)
+					if($form.find("input[name="+this.name+"]").length>0)
+						values[this.name]=$(this).val();
+					else
+						values[this.id]=$(this).val();
+			}else if(this.type==="checkbox"){
+				values[this.id]=this.checked;
+			}else{
+				if(this.type==="email" && $(this).val()!="" && !isEmail(this.value) && this.required===false){
+					valid=false;
+					if(validate){
+						
+						bindError(this);
+						focusMe.push(this);
+					}
+				}else
+					values[this.id]=$(this).val();
+			}
+				
+			
+			if(this.required!==false && this.required!==undefined){
+				if((this.type==="radio" || this.type==="checkbox") && !this.checked){
+					if(validate){
+						bindError(this);
+						focusMe.push(this);
+					}
+					valid=false;
+				}else{
+					if(isEmpty(this.value) || (this.type==="email" && !isEmail(this.value)) ){
+						valid=false;
+						if(validate){
+							bindError(this);
+							focusMe.push(this);
+						}
+					}else
+						if(validate){
+							unbindError(this);
+						}
+				}
+			}
+		});
+		if(validate){
+			if(valid)
+				return values;
+			else{
+				$(focusMe[0]).focus();
+				return null;
+			}
+		}else
+			return values;
+	}else
+		return null;
+}
+
+
+/*
+ * isEmail: Thanks to Jose (https://github.com/josex2r)
+ * */
+function isEmail(email){   
+	return email.match(/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/);
+};
+
+function isEmpty(variable){
+	return (typeof variable==="undefined" || variable===null || variable.length==0 || variable.value==="");
+};
+
+function haveWhitespaces(variable) {   
+    var espacio=[" ","\n","\t","\r"];
+    if(!Form.isEmpty(variable))
+		for(var i=0; i<variable.length; i++)
+			if(espacio.indexOf( variable.substring(i,i+1) ) != -1)
+				return true;
+    return false;
+}
+function isNumber(n) {
+	  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+
+/*
+ * bindError: Thanks to Jose (https://github.com/josex2r)
+ * */
+function bindError(node){
+	var $inputNode=$(node);
+	if($inputNode.type!=="submit"){
+		if($inputNode.nodeName=="OPTION")
+			$inputNode=$inputNode.parent();
+		$inputNode.addClass("error");
+		if($inputNode.type==="checkbox" || $inputNode.type==="radio" || $inputNode.type==="select-one" || $inputNode.type==="select-multiple")
+			$inputNode.bind("change.inputError",function(){
+				$inputNode.removeClass("error");
+				$inputNode.unbind("change.error");
+			});
+		else if($inputNode.type!=="submit")
+			$inputNode.bind("keyup.inputError",function(){
+				$inputNode.removeClass("error");
+				$inputNode.unbind("keyup.error");
+			});
+	}
+}
+
+
+/*
+ * unbindError: Thanks to Jose (https://github.com/josex2r)
+ * */
+function unbindError(node){
+	var $inputNode=$(node);
+	if($inputNode.type!=="submit"){
+		if($inputNode.nodeName=="OPTION")
+			$inputNode=$inputNode.parent();
+		$inputNode.removeClass("input_error");
+		if($inputNode.type==="checkbox" || $inputNode.type==="radio" || $inputNode.type==="select-one" || $inputNode.type==="select-multiple")
+			$inputNode.unbind("change.inputError");
+		else if($inputNode.type!=="submit")
+			$inputNode.unbind("keyup.inputError");
+	}
+}

@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import ugettext_lazy as _
 
+from revengeapp.models import revengeMilestone
+
 
 class RevengeUserCreationForm(UserCreationForm):
     class Meta:
@@ -93,9 +95,12 @@ class SignUpForm(forms.ModelForm):
 
 
 class RevengeMilestoneForm(forms.Form):
-    friend = forms.CharField(max_length=100, required=True)
-    point = forms.CharField(max_length=100, required=True)
-    comment = forms.CharField(max_length=250, required=True)
+
+    class Meta:
+        model = revengeMilestone
+    #friend = forms.CharField(max_length=100, required=True)
+    #point = forms.CharField(max_length=100, required=True)
+    #comment = forms.CharField(max_length=250, required=True)
 
 
 class AddFriendForm(forms.Form):
