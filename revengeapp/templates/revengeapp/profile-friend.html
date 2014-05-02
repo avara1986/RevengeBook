@@ -5,16 +5,21 @@
     {{ friend.first_name }} {{ friend.last_name }}<br/>
     {{ friend.email }}
     </p>
-	{% for milestone in milestones %}
-	{% if milestone.tome %}
-		<h3> {{ milestone.route }}: <a href="/profile/{{ milestone.affected.pk }}">{{ milestone.affected.username }}</a></h3>
-	{% else %}
-		<h3> {{ milestone.route }}: <a href="/profile/{{ milestone.owner.pk }}">{{ milestone.owner.username }}</a></h3>
-	{% endif %}
-		
-	<blockquote>
-		<img src="{{ MEDIA_URL }}{{ milestone.point.image }}" style="width:95px"/>
-		<span>Comment: {{ milestone.comment }}</span> 
-	</blockquote>
-	{% endfor %}
+    {% for milestone in milestones %}
+		{% if milestone.tome %}
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title"> {{ milestone.route }}: <a href="/profile/{{ milestone.affected.pk }}">{{ milestone.affected.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
+				</div> 
+		{% else %}
+			<div class="panel panel-warning">
+				<div class="panel-heading">					
+					<h3 class="panel-title"> {{ milestone.route }}: <a href="/profile/{{ milestone.owner.pk }}">{{ milestone.owner.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
+				</div>
+				{% endif %}
+		<div class="panel-body">
+		<img src="{{ MEDIA_URL }}{{ milestone.point.image }}" style="width:95px"/> {{ milestone.comment }}
+		</div>
+		</div>
+	{% endfor %}    
 {% endblock %}

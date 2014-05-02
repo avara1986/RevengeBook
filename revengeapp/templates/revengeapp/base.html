@@ -50,7 +50,7 @@
             <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'RevengePanel' %}">My panel</a></li>
+                    <li><a href="{% url 'RevengePanel' %}"><span class="glyphicon glyphicon-home"></span> My panel</a></li>
                     <li class="dropdown" >
                     	<div id="searchFriendNavBarShow" >
 							<form id="formSearchFriend" method="POST" action="{% url 'searchFriend' %}" class="navbar-form navbar-left" role="search">
@@ -65,9 +65,9 @@
 							<li><a href="{% url 'RevengePanel' %}" class="dropdown-toggle" data-toggle="dropdown">My panel</a></li>
 						</ul>
 					</li>
-					<li><a href="{% url 'sign_out' %}">Log Out</a></li>
+					<li><a href="{% url 'sign_out' %}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
                 {% else %}
-                    <li><a href="{% url 'index' %}">Sign In</a></li>
+                    <li><a href="{% url 'index' %}"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
                     <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
                 {% endif %}
             </ul>

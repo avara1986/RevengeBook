@@ -113,6 +113,8 @@ function searchMyFriend(sectionLoad){
 			$.each(data.friends, function(i, friend){
 				if(idSelected == friend.id){
 					classSelected='class="alert-success"'
+				}else{
+					classSelected=''
 				}
 				resultSeach += '<li id="searchFriendFormRevenge_'+friend.id+'" '+classSelected+'><a href="#" onclick="selectAddFriend(\''+friend.id+'\'); return false;">'+friend.username+'</a></li>';
 				console.log(friend.id);
