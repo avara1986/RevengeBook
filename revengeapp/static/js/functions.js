@@ -38,13 +38,20 @@ $(document).ajaxSend(function(event, xhr, settings) {
 function searchFriend(){
 	var searchFriend = $('#searchFriend').val();
 	
-	$.ajax('/kwsn/search-friends/?act=ajax', {type: 'POST', data: {
+	$.ajax('/kwsn/search-friends/', {type: 'POST', data: {
 		searchFriend: searchFriend
 	}, dataType: 'json'})
 	.done(function(data) {
-		//alert(data);
-		if (data.success) {
-			console.log(data);
+		console.log(data.response)
+		if(data.response==true) {
+			console.log(data.friends);
+			$.each(data.friends, function(i, friend){
+				console.log(friend.id);
+				console.log(friend.username);
+				console.log(friend.first_name);
+				console.log(friend.last_name);
+				console.log(friend.email);
+			});
 		}
 	})
 	.fail(function() { console.log("lookup error"); });

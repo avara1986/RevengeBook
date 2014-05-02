@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 @python_2_unicode_compatible
 class User(AbstractUser):
-    friends = models.ManyToManyField("self", verbose_name=_('Amigos'),
+    friends = models.ManyToManyField("self", verbose_name=_('Friends'),
                                     related_name='friends',
                                     null=True,
                                     blank=True)
@@ -36,8 +36,9 @@ class revengeMilestone(models.Model):
                               related_name='owner_of_milestone')
     affected = models.ForeignKey(User, verbose_name=_('Affected'),
                               related_name='affected_of_milestone')
+    #title = models.CharField(_('title'), max_length=230, unique=True)
     comment = models.CharField(_('Comment'), max_length=250, blank=True)
-    point = models.ForeignKey(revengePoint, verbose_name=_(u'Point'))
+    point = models.ForeignKey(revengePoint, verbose_name=_('Point'))
 
     def __str__(self):
         return u'De: %s Para: %s El %s' % (self.owner.username,

@@ -35,9 +35,19 @@ def search_friend(request):
     if 'searchFriend' in request.POST:
         searchFriend = request.POST.get("searchFriend")
         SF = User.objects.filter(username=searchFriend).order_by('-username')
+        #import ipdb; ipdb.set_trace()
         jsonresponse = {
-                     'response': True,
-                     'friends': SF,
-                     }
+             'response': True,
+             'friends': [],
+             }
+        for friend in SF:
+            jsonresponse['friends'].append({
+                                    'id': friend.pk,
+                                    'username': friend.username,
+                                    'first_name': friend.first_name,
+                                    'last_name': friend.last_name,
+                                    'email': friend.email
+                                    })
+
     json = dumps(jsonresponse, cls=DjangoJSONEncoder)
     return HttpResponse(json)

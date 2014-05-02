@@ -40,7 +40,6 @@ def sign_up(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            # LLamar al modelo para verificar si el usuario existe
             user = User.objects.create(username=request.POST.get("username", ""))
             user.email = request.POST.get("email", "")
             user.password = request.POST.get("password", "")
@@ -64,7 +63,8 @@ def revengePanel(request):
         friend = User.objects.get(id=request.POST.get("friend", ""))
         user = User.objects.get(id=request.session['member_id'])
         point = revengePoint.objects.get(id=request.POST.get("point", ""))
-        obRevengeMilestone = revengeMilestone.objects.create(owner=user, affected=friend, point=point)
+        obRevengeMilestone = revengeMilestone.objects.create(owner=user,
+                                                 affected=friend, point=point)
         obRevengeMilestone.comment = request.POST.get("comment", "")
         obRevengeMilestone.save()
     revPoints = revengePoint.objects.all()

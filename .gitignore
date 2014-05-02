@@ -1,6 +1,8 @@
 # -- RevengeBook ----
 db.sqlite3
 
+*.pyc
+
 # -- Composer -----------------------------------------
 composer.phar
 
