@@ -10,6 +10,7 @@ class User(AbstractUser):
                                     related_name='friends',
                                     null=True,
                                     blank=True)
+    #avatar = models.ImageField(upload_to="avatars")
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'

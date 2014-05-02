@@ -1,5 +1,4 @@
 # encoding: utf-8
-from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -21,7 +20,6 @@ def index(request):
     if form.is_valid():
         user = form.user
         login(request, user)
-        messages.add_message(request, messages.INFO, _('Welcome %s' % user.username))
         return HttpResponseRedirect(reverse('RevengePanel'))
     return render_to_response('revengeapp/index.html',
                               {'form': form},
@@ -30,9 +28,7 @@ def index(request):
 
 @login_required
 def sign_out(request):
-    user = request.user
     logout(request)
-    messages.add_message(request, messages.INFO, _('Goodbye %s' % user.username))
     return HttpResponseRedirect(reverse('index'))
 
 
@@ -67,19 +63,31 @@ def revengePanel(request):
                                                  affected=friend, point=point)
         obRevengeMilestone.comment = request.POST.get("comment", "")
         obRevengeMilestone.save()
-    revPoints = revengePoint.objects.all()
 
     milestones = revengeMilestone.objects.filter(owner=user).order_by('-milestone_date')
-
-    return render_to_response('revengeapp/revenge-panel.html',
-                              {
+    return render_to_response('revengeapp/revenge-panel.html', {
+                               'test': 'prueba',
                                'formRevengeMiltestone': form,
                                'friendsList': user.friends.all(),
-                               'revPoints': revPoints,
                                'milestones': milestones,
                                },
                               context_instance=RequestContext(request))
 
+
 @login_required
 def search_friend(request):
+    searchFriend = request.POST.get("searchFriend")
+    if len(searchFriend) == 0:
+        return HttpResponseRedirect(reverse('RevengePanel'))
+
+    friends = User.objects.filter(username=searchFriend).order_by('-username')
+    return render_to_response('revengeapp/search-friend.html', {
+                               'searchFriend': searchFriend,
+                               'searchFriendList': friends,
+                               },
+                              context_instance=RequestContext(request))
+
+
+@login_required
+def see_profile(request):
     pass

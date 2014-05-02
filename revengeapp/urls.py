@@ -9,6 +9,7 @@ views_urlpatterns = patterns('revengeapp.views',
     url(r'^revenge-panel/', 'revengePanel', name='RevengePanel'),
     url(r'^sign-out/$', 'sign_out', name='sign_out'),
     url(r'^search-friend/$', 'search_friend', name='searchFriend'),
+    url(r'^profile/(?P<iduser>[0-9]{0,15})/$', 'see_profile', name='see_profile'),
     url(r'^kwsn/', include(ajax_urlpatterns)),
 )
 urlpatterns = patterns('',

@@ -1,0 +1,13 @@
+﻿{% extends "revengeapp/revenge-panel.html" %}
+
+{% block revengepanel_content %}
+    <p>
+    Search Result of <b>{{ searchFriend }}</b>
+    </p>
+    <p>
+	{% for friend in searchFriendList %}
+	<h3>{{ friend.username }}</h3>
+	<h4>{{ friend.first_name }} {{ friend.last_name }}</h4>
+	{% endfor %}
+	</p>
+{% endblock %}

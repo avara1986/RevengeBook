@@ -47,10 +47,6 @@ class RevengeUserChangeForm(UserChangeForm):
 
 
 class SignInForm(forms.ModelForm):
-    remember_me = forms.BooleanField(label=_('Remember me'),
-                                     required=False,
-                                     initial=True)
-
     class Meta:
         model = get_user_model()
         fields = ('username', 'password')

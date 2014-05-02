@@ -35,8 +35,8 @@ $(document).ajaxSend(function(event, xhr, settings) {
 		xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
 	}
 });
-function searchFriend(){
-	var searchFriend = $('#searchFriend').val();
+function searchFriend(sectionLoad){
+	var searchFriend = $('#'+sectionLoad).val();
 	
 	$.ajax('/kwsn/search-friends/', {type: 'POST', data: {
 		searchFriend: searchFriend
@@ -55,13 +55,13 @@ function searchFriend(){
 				console.log(friend.email);
 			});
 			resultSeach += '<li class="divider"></li>';
-			resultSeach += '<li><a href="/search-friends/?searchFriend='+searchFriend+'" target="_blank">See all results</a></li>';
-			$('#searchFriendMenu').html(resultSeach);
-			$('#showSearch').dropdown('toggle');
+			resultSeach += '<li><a href="#" onclick="$(\'#formSearchFriend\').submit()">See all results</a></li>';
+			$('#'+sectionLoad+'Menu').html(resultSeach);
+			$('#'+sectionLoad+'Show').dropdown('toggle');
 		}
 	})
 	.fail(function() { console.log("lookup error"); });
 }
-$('#searchFriend').keyup(function() {
-	searchFriend();
+$('#searchFriendNavBar').keyup(function() {
+	searchFriend('searchFriendNavBar');
 });
