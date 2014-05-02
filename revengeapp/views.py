@@ -2,10 +2,13 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
+
+from itertools import chain
 
 from revengeapp.forms import SignInForm, SignUpForm
 from revengeapp.models import User, revengeMilestone
@@ -52,7 +55,15 @@ def sign_up(request):
 def revenge_panel(request):
     user = request.user
 
-    milestones = revengeMilestone.objects.filter(owner=user).order_by('-milestone_date')
+    milestones = revengeMilestone.objects.filter(Q(owner=user) | Q(affected=user)).order_by('-milestone_date')
+    #import ipdb; ipdb.set_trace()
+    for milestone in milestones:
+        if milestone.owner == user:
+            milestone.tome = True
+            milestone.route = 'To'
+        else:
+            milestone.tome = False
+            milestone.route = 'Form'
     return render_to_response('revengeapp/revenge-panel.html', {
                                'friendsList': user.friends.all(),
                                'milestones': milestones,

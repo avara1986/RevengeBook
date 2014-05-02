@@ -47,7 +47,7 @@
 					<button type="button" id="sendMilestone" class="btn btn-default">Send revenge</button>
 					<div class="alert alert-danger" id="formErrorGeneric" style="display:none;margin-top:15px;">
 						All fields are mandatory
-					</div>						
+					</div>
 				</form>
 		  </div>
 		</div>    
@@ -59,7 +59,11 @@
 	    </p>
 	    <p>
 		{% for milestone in milestones %}
-		<h3> Para {{ milestone.affected.username }}</h3>
+		{% if milestone.tome %}
+			<h3> {{ milestone.route }}: {{ milestone.affected.username }}</h3>
+		{% else %}
+			<h3> {{ milestone.route }}: {{ milestone.affected.username }}</h3>
+		{% endif %}
 		<blockquote>
 			<img src="{{ MEDIA_URL }}{{ milestone.point.image }}" style="width:95px"/>Comment: {{ milestone.comment }} 
 		</blockquote>
