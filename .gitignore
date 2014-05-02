@@ -1,6 +1,6 @@
 # -- RevengeBook ----
 db.sqlite3
-
+revengeBook/settings.py
 *.pyc
 
 # -- Composer -----------------------------------------
