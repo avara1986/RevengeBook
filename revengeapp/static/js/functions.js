@@ -44,14 +44,20 @@ function searchFriend(){
 	.done(function(data) {
 		console.log(data.response)
 		if(data.response==true) {
-			console.log(data.friends);
+			//console.log(data.friends);
+			var resultSeach = "";
 			$.each(data.friends, function(i, friend){
+				resultSeach += '<li><a href="/profile/'+friend.id+'" target="_blank">'+friend.username+'</a></li>';
 				console.log(friend.id);
 				console.log(friend.username);
 				console.log(friend.first_name);
 				console.log(friend.last_name);
 				console.log(friend.email);
 			});
+			resultSeach += '<li class="divider"></li>';
+			resultSeach += '<li><a href="/search-friends/?searchFriend='+searchFriend+'" target="_blank">See all results</a></li>';
+			$('#searchFriendMenu').html(resultSeach);
+			$('#showSearch').dropdown('toggle');
 		}
 	})
 	.fail(function() { console.log("lookup error"); });

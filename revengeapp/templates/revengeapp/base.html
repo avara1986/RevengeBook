@@ -50,24 +50,22 @@
             <ul class="nav navbar-nav">
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'RevengePanel' %}">My panel</a></li>
-                    <li class="dropdown">
-					<form method = "POST" action="{% url 'searchFriend' %}" class="navbar-form navbar-left" role="search">
-						<div class="form-group">
-							<input type="text" id="searchFriend" name="searchFriend" class="form-control" placeholder="Search">
+                    <li class="dropdown" >
+                    	<div id="showSearch" class="dropdown-toggle" data-toggle="dropdown">
+							<form method = "POST" action="{% url 'searchFriend' %}" class="navbar-form navbar-left" role="search">
+								{% csrf_token %}
+								<div class="form-group">
+									<input type="text" id="searchFriend" name="searchFriend" class="form-control" placeholder="Search" autocomplete="off">
+								</div>
+								<button type="submit" class="btn btn-default">Search Friends</button>
+							</form>
+							<span class="caret"></span>
 						</div>
-						<button type="submit" class="btn btn-default">Search Friends</button>
-					</form>
-					<ul class="dropdown-menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-						<li class="divider"></li>
-						<li><a href="#">One more separated link</a></li>
-					</ul>
+						<ul class="dropdown-menu" id="searchFriendMenu">
+							<li><a href="{% url 'RevengePanel' %}" class="dropdown-toggle" data-toggle="dropdown">My panel</a></li>
+						</ul>
 					</li>
-                    <li><a href="{% url 'sign_out' %}">Log Out</a></li>
+					<li><a href="{% url 'sign_out' %}">Log Out</a></li>
                 {% else %}
                     <li><a href="{% url 'index' %}">Sign In</a></li>
                     <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
