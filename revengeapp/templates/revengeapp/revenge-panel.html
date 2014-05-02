@@ -57,18 +57,18 @@
 	    <p>
 	    Minions ipsum ti aamoo! Voluptate velit aaaaaah consequat. Ex exercitation laboris jeje aliqua exercitation ex tatata bala tu nostrud. Jiji tempor sed bananaaaa aaaaaah enim minim belloo! Enim. Cillum bee do bee do bee do aliqua nostrud duis baboiii qui baboiii. Officia elit enim incididunt et daa incididunt aute. Para tu magna chasy reprehenderit exercitation voluptate commodo minim belloo! Officia hana dul sae.
 	    </p>
-	    <p>
 		{% for milestone in milestones %}
 		{% if milestone.tome %}
-			<h3> {{ milestone.route }}: {{ milestone.affected.username }}</h3>
+			<h3> {{ milestone.route }}: <a href="/profile/{{ milestone.affected.pk }}">{{ milestone.affected.username }}</a></h3>
 		{% else %}
-			<h3> {{ milestone.route }}: {{ milestone.affected.username }}</h3>
+			<h3> {{ milestone.route }}: <a href="/profile/{{ milestone.owner.pk }}">{{ milestone.owner.username }}</a></h3>
 		{% endif %}
+			
 		<blockquote>
-			<img src="{{ MEDIA_URL }}{{ milestone.point.image }}" style="width:95px"/>Comment: {{ milestone.comment }} 
+			<img src="{{ MEDIA_URL }}{{ milestone.point.image }}" style="width:95px"/>
+			<span>Comment: {{ milestone.comment }}</span> 
 		</blockquote>
 		{% endfor %}
-		</p>
 	{% endblock %}
 	</div>
 </div>

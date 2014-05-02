@@ -85,5 +85,21 @@ def search_friend(request):
 
 
 @login_required
-def see_profile(request):
-    pass
+def see_profile(request,idfriend):
+    if len(idfriend) == 0:
+        return HttpResponseRedirect(reverse('RevengePanel'))
+    friend = User.objects.get(id=idfriend)
+    milestones = revengeMilestone.objects.filter(Q(owner=friend) | Q(affected=friend)).order_by('-milestone_date')
+    #import ipdb; ipdb.set_trace()
+    for milestone in milestones:
+        if milestone.owner == friend:
+            milestone.tome = True
+            milestone.route = 'To'
+        else:
+            milestone.tome = False
+            milestone.route = 'Form'
+    return render_to_response('revengeapp/profile-friend.html', {
+                               'friend': friend,
+                               'milestones': milestones,
+                               },
+                              context_instance=RequestContext(request))
