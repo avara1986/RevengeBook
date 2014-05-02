@@ -1,7 +1,10 @@
+from django.core.mail import EmailMultiAlternatives
 from django.core.serializers import serialize
 from django.contrib.auth.decorators import login_required
 from django.db.models.query import QuerySet
 from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from django.utils.simplejson import dumps, loads, JSONEncoder
 
 from revengeapp.forms import RevengeMilestoneForm, AddFriendForm
@@ -47,7 +50,15 @@ def add_milestone(request):
         obRevengeMilestone.comment = request.POST.get("comment", "")
         obRevengeMilestone.save()
         jsonresponse = {'response': True}
-
+        subject, from_email, to = 'Nueva venganza recibida', 'no-reply@gobalo.es', friend.email
+        html_content = render_to_string('revengeapp/email_sendmilestone.html', 
+                                        {'user':user,
+                                         'milestone': obRevengeMilestone,
+                                         })
+        text_content = strip_tags(html_content)
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
     json = dumps(jsonresponse, cls=DjangoJSONEncoder)
     return HttpResponse(json)
 
