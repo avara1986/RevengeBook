@@ -5,6 +5,7 @@ revengeBook/settings.py
 .tox
 .tox/*
 revengeBook.egg-info
+.coverage.*
 # -- Composer -----------------------------------------
 composer.phar
 
