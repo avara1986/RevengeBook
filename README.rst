@@ -7,7 +7,7 @@ RevengeBook
 Information
 ===========
 
-.. image:: https://travis-ci.org/avara1986/RevengeBook.svg   :target: https://travis-ci.org/avara1986/RevengeBook
+.. image:: https://travis-ci.org/avara1986/RevengeBook.svg?branch=master   :target: https://travis-ci.org/avara1986/RevengeBook
 
 RevengeBook is a Social Website based on Pitble Django Project.
 
