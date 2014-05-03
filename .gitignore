@@ -2,7 +2,9 @@
 db.sqlite3
 revengeBook/settings.py
 *.pyc
-
+.tox
+.tox/*
+revengeBook.egg-info
 # -- Composer -----------------------------------------
 composer.phar
 
