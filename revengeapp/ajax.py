@@ -7,9 +7,9 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.simplejson import dumps, loads, JSONEncoder
 
-from revengeapp.forms import RevengeMilestoneForm, AddFriendForm
+from revengeapp.forms import RevengeMilestoneForm
 from revengeapp.models import User, revengeMilestone, revengePoint
-
+from revengeBook import settings
 
 # extend simplejson to allow serializing django queryset objects directly
 # Thanks to: chriszweber. https://djangosnippets.org/snippets/2656/
@@ -50,7 +50,7 @@ def add_milestone(request):
         obRevengeMilestone.comment = request.POST.get("comment", "")
         obRevengeMilestone.save()
         jsonresponse = {'response': True}
-        subject, from_email, to = 'Nueva venganza recibida', 'no-reply@gobalo.es', friend.email
+        subject, from_email, to = 'Nueva venganza recibida', settings.DEFAULT_FROM_EMAIL, friend.email
         html_content = render_to_string('revengeapp/email_sendmilestone.html',
                                         {'user': user,
                                          'milestone': obRevengeMilestone,
