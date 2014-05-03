@@ -77,7 +77,8 @@ function searchFriend(sectionLoad){
 			//console.log(data.friends);
 			var resultSeach = "";
 			$.each(data.friends, function(i, friend){
-				resultSeach += '<li><a href="/profile/'+friend.id+'" target="_blank">'+friend.username+'</a></li>';
+				resultSeach += '<li><a href="/profile/'+friend.id+'" target="_blank">'+
+				'<span class="glyphicon glyphicon-plus pull-right" onclick="sendFriendRequest(\''+friend.id+'\')"></span>'+friend.username+'</a></li>';
 				console.log(friend.id);
 				console.log(friend.username);
 				console.log(friend.first_name);
@@ -116,7 +117,9 @@ function searchMyFriend(sectionLoad){
 				}else{
 					classSelected=''
 				}
-				resultSeach += '<li id="searchFriendFormRevenge_'+friend.id+'" '+classSelected+'><a href="#" onclick="selectAddFriend(\''+friend.id+'\'); return false;">'+friend.username+'</a></li>';
+				resultSeach += '<li id="searchFriendFormRevenge_'+friend.id+'" '+classSelected+'>'+
+				'<a href="#" onclick="selectAddFriend(\''+friend.id+'\'); return false;">'+
+				friend.username+'</a></li>';
 				console.log(friend.id);
 				console.log(friend.username);
 				console.log(friend.first_name);
@@ -141,6 +144,20 @@ function selectAddFriend(id){
 	$('#searchFriendFormRevenge_'+id).addClass();
 }
 
+
+function sendFriendRequest(friendId){
+	$.ajax('/kwsn/send-friend-request/', {type: 'POST', data: {
+		friendId: friendId
+	}, dataType: 'json'})
+	.done(function(data) {
+		//console.log(data.response)
+		if(data.response==true) {
+			window.location.replace(window.location.href+'?result_send_friend_request=ok');
+		}
+	})
+	.fail(function() { console.log("lookup error"); });
+	return false;
+}
 /**
  * Aux functions to validate Form fields
  * 

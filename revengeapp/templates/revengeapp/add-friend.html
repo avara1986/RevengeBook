@@ -1,0 +1,12 @@
+{% extends "revengeapp/revenge-panel.html" %}
+{% block revengepanel_content %}
+	{% if result %}
+	<h2>{{ friend.username }} Añadido correctamente</h2>
+    <p>
+    {{ friend.username }}. {{ friend.first_name }} {{ friend.last_name }}<br/>
+    {{ friend.email }}
+    </p>
+    {% else %}
+    <h2>Se produjo un error realizando su petición</h2>
+    {% endif %}
+{% endblock %}

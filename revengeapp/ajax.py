@@ -51,8 +51,8 @@ def add_milestone(request):
         obRevengeMilestone.save()
         jsonresponse = {'response': True}
         subject, from_email, to = 'Nueva venganza recibida', 'no-reply@gobalo.es', friend.email
-        html_content = render_to_string('revengeapp/email_sendmilestone.html', 
-                                        {'user':user,
+        html_content = render_to_string('revengeapp/email_sendmilestone.html',
+                                        {'user': user,
                                          'milestone': obRevengeMilestone,
                                          })
         text_content = strip_tags(html_content)
@@ -92,11 +92,12 @@ def search_friend(request):
 
 @login_required
 def search_my_friend(request):
-    jsonresponse = {'response': "error",
+    user = request.user
+    jsonresponse = {'response': False,
                     'friends': []}
     if 'searchFriend' in request.POST:
         searchFriend = request.POST.get("searchFriend")
-        SF = User.objects.filter(username__contains=searchFriend).order_by('-username')
+        SF = User.objects.filter(username__contains=searchFriend, friends=user).order_by('-username')
         #import ipdb; ipdb.set_trace()
         jsonresponse = {
              'response': True,
@@ -112,5 +113,29 @@ def search_my_friend(request):
                                     'email': friend.email
                                     })
 
+    json = dumps(jsonresponse, cls=DjangoJSONEncoder)
+    return HttpResponse(json)
+
+
+@login_required
+def send_friend_request(request):
+    user = request.user
+    jsonresponse = {'response': False}
+    #import ipdb; ipdb.set_trace()
+    if request.method == 'POST':
+        friendId = request.POST.get("friendId", "")
+        if len(friendId) > 0:
+            friend = User.objects.get(id=request.POST.get("friendId", ""))
+            jsonresponse = {'response': True}
+            subject, from_email, to = 'Nueva solicitud de amistad', 'no-reply@gobalo.es', friend.email
+            html_content = render_to_string('revengeapp/email_sendfriendrequest.html',
+                                            {'user': user,
+                                             'friend': friend,
+                                             })
+            text_content = strip_tags(html_content)
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+            jsonresponse = {'response': True}
     json = dumps(jsonresponse, cls=DjangoJSONEncoder)
     return HttpResponse(json)

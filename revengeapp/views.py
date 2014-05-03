@@ -8,11 +8,27 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 
-from itertools import chain
-
 from revengeapp.forms import SignInForm, SignUpForm
 from revengeapp.models import User, revengeMilestone
 # Create your views here.
+
+
+def add_friend(request):
+    user = request.user
+    resultOp = False
+    if request.method == 'GET':
+        idfriend = request.GET.get("friendId", "")
+        if len(idfriend) == 0:
+            return HttpResponseRedirect(reverse('RevengePanel'))
+        friend = User.objects.get(id=idfriend)
+        friend.friends.add(user)
+        friend.save()
+        resultOp = True
+    return render_to_response('revengeapp/add-friend.html', {
+                               'friend': friend,
+                               'result': resultOp,
+                               },
+                              context_instance=RequestContext(request))
 
 
 def index(request):
@@ -85,7 +101,7 @@ def search_friend(request):
 
 
 @login_required
-def see_profile(request,idfriend):
+def see_profile(request, idfriend):
     if len(idfriend) == 0:
         return HttpResponseRedirect(reverse('RevengePanel'))
     friend = User.objects.get(id=idfriend)

@@ -48,8 +48,8 @@
             <a class="navbar-brand" href="#">RevengeBook</a>
             </div>
             <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
+                <ul class="nav navbar-nav">
                     <li><a href="{% url 'RevengePanel' %}"><span class="glyphicon glyphicon-home"></span> My panel</a></li>
                     <li class="dropdown" >
                     	<div id="searchFriendNavBarShow" >
@@ -65,12 +65,24 @@
 							<li><a href="{% url 'RevengePanel' %}" class="dropdown-toggle" data-toggle="dropdown">My panel</a></li>
 						</ul>
 					</li>
-					<li><a href="{% url 'sign_out' %}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-                {% else %}
-                    <li><a href="{% url 'index' %}"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
-                    <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
-                {% endif %}
-            </ul>
+				</ul>
+				<ul class="dropdown nav navbar-nav navbar-right">
+					<li class="dropdown" >
+						<a class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+							{{ user.username }} <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="{% url 'sign_out' %}"><span class="glyphicon glyphicon-user"></span> My profile</a></li>
+							<li><a href="{% url 'sign_out' %}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+						</ul>
+					</li>
+				</ul>
+            {% else %}
+            	<ul class="nav navbar-nav">
+	                <li><a href="{% url 'index' %}"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+	                <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
+                </ul>
+            {% endif %}
             </div><!--/.nav-collapse -->
         </div>
         </div>
