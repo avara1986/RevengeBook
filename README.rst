@@ -6,8 +6,13 @@ RevengeBook
 
 Information
 ===========
+.. image:: https://travis-ci.org/avara1986/RevengeBook.svg?branch=master
+    :target: https://travis-ci.org/avara1986/RevengeBook
 
-.. image:: https://travis-ci.org/avara1986/RevengeBook.svg?branch=master   :target: https://travis-ci.org/avara1986/RevengeBook
+
+.. image:: https://coveralls.io/repos/avara1986/RevengeBook/badge.png
+  :target: https://coveralls.io/r/avara1986/RevengeBook
+
 
 RevengeBook is a Social Website based on Pitble Django Project.
 
@@ -21,13 +26,12 @@ Installation
 * In your settings:
 
 ::
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'no-reply@your-domain.es'
-EMAIL_HOST_PASSWORD = '*****'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'no-reply@your-domain.es'
+	EMAIL_HOST = 'smtp.gmail.com'
+	EMAIL_PORT = 587
+	EMAIL_HOST_USER = 'no-reply@your-domain.es'
+	EMAIL_HOST_PASSWORD = '*****'
+	EMAIL_USE_TLS = True
+	DEFAULT_FROM_EMAIL = 'no-reply@your-domain.es'
 
 Executing the test
 ==================
