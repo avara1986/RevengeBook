@@ -26,6 +26,7 @@ Installation
 * In your settings:
 
 ::
+
 	EMAIL_HOST = 'smtp.gmail.com'
 	EMAIL_PORT = 587
 	EMAIL_HOST_USER = 'no-reply@your-domain.es'
@@ -39,6 +40,7 @@ Executing the test
 You need install project before
 
 ::
+
     python manage.py test revengeapp
 
 
