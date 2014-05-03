@@ -1,0 +1,15 @@
+language: python
+
+install:
+  - pip install -q --use-mirrors tox==1.7.1 coveralls==0.4.1
+
+script:
+  - coverage erase
+  - tox
+after_success:
+  - coverage combine
+  - coveralls
+
+notifications:
+  email:
+    - a.vara.1986@gmail.com
