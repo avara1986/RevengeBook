@@ -58,6 +58,14 @@ class RevengeBookTestCase(TestCase):
         see_profile_url = reverse('see_profile', kwargs={'idfriend': 1})
         see_profile_res = self.client.get(see_profile_url)
         self.assertEqual(see_profile_res.status_code, 302)
+        # add_friend view
+        add_friend_url = reverse('add_friend')
+        add_friend_res = self.client.get(add_friend_url)
+        self.assertEqual(add_friend_res.status_code, 302)
+        # sign_out view
+        sign_out_url = reverse('sign_out')
+        sign_out_res = self.client.get(sign_out_url)
+        self.assertEqual(sign_out_res.status_code, 302)
 
     def test_get_200_with_login(self):
         User = get_user_model()
@@ -72,24 +80,67 @@ class RevengeBookTestCase(TestCase):
         see_profile_url = reverse('see_profile', kwargs={'idfriend': user1.id})
         see_profile_res = self.client.get(see_profile_url)
         self.assertEqual(see_profile_res.status_code, 200)
+        # add_friend view
+        add_friend_url = reverse('add_friend')
+        add_friend_res = self.client.get(add_friend_url)
+        self.assertEqual(add_friend_res.status_code, 302)
+        # sign_out view
+        sign_out_url = reverse('sign_out')
+        sign_out_res = self.client.get(sign_out_url)
+        self.assertEqual(sign_out_res.status_code, 302)
+        # search_friend view
+        search_friend_url = reverse('search_friend')
+        search_friend_res = self.client.post(search_friend_url)
+        self.assertEqual(search_friend_res.status_code, 302)
 
         self.delete_user(username)
         self.assertEqual(User.objects.filter(username=username).count(), 0)
 
-    def test_post_forms(self):
+    def test_post_forms_sign_up(self):
         username = password = 'user1'
         # sign up view
         sign_up_url = reverse('sign_up')
+        sign_up_res_error = self.client.post(sign_up_url, {'username': username,
+                                                     'password': password,
+                                                     'validate_password': 'nada'})
+        self.assertEqual(sign_up_res_error.status_code, 200)
+        # sign up view
         sign_up_res = self.client.post(sign_up_url, {'username': username,
                                                      'password': password,
                                                      'validate_password': password})
-        self.assertEqual(sign_up_res.status_code, 200)
+        self.assertEqual(sign_up_res.status_code, 302)
+        # sign_out view
+        sign_out_url = reverse('sign_out')
+        sign_out_res = self.client.get(sign_out_url)
+        self.assertEqual(sign_out_res.status_code, 302)
+        self.delete_user(username)
+
+    def test_post_forms_sign_in(self):
+        username = password = 'user1'
+        self.create_user(username, password)
         # index view
         index_url = reverse('index')
         index_res = self.client.post(index_url, {'username': username,
                                                  'password': password})
-        self.assertEqual(index_res.status_code, 200)
+        self.assertEqual(index_res.status_code, 302)
         self.delete_user(username)
+
+    def test_add_search_friends(self):
+        User = get_user_model()
+        username = password = 'user1'
+        user1 = self.create_user(username, password)
+        self.login(username, password)
+        # add_friend view
+        add_friend_url = reverse('add_friend')
+        add_friend_res = self.client.get(add_friend_url, {'friendId': user1.id})
+        self.assertEqual(add_friend_res.status_code, 200)
+        # search_friend view
+        search_friend_url = reverse('search_friend')
+        search_friend_res = self.client.post(search_friend_url, {'searchFriendNavBar': 'user1'})
+        self.assertEqual(search_friend_res.status_code, 200)
+
+        self.delete_user(username)
+        self.assertEqual(User.objects.filter(username=username).count(), 0)
 
     def test_friends(self):
         user1 = self.create_user('user1', 'user1')

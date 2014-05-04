@@ -52,16 +52,14 @@ def sign_out(request):
 
 
 def sign_up(request):
+    data = None
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = User.objects.create(username=request.POST.get("username", ""))
-            user.email = request.POST.get("email", "")
-            user.password = request.POST.get("password", "")
-            user.save()
-    else:
-        form = SignUpForm()
-
+        data = request.POST
+    form = SignUpForm(data=data)
+    if form.is_valid():
+        user = form.save()
+        login(request, user)
+        return HttpResponseRedirect(reverse('RevengePanel'))
     return render_to_response('revengeapp/register.html',
                               {'form': form, },
                               context_instance=RequestContext(request))
