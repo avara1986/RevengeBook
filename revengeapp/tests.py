@@ -8,6 +8,7 @@ class RevengeBookTestCase(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.csrf_client = Client(enforce_csrf_checks=True)
 
     def create_user(self, username, password):
         User = get_user_model()
@@ -32,6 +33,17 @@ class RevengeBookTestCase(TestCase):
         index_res = self.client.get(index_url)
         self.assertEqual(index_res.status_code, 200)
 
+        # sign up view
+        sign_up_url = reverse('sign_up')
+        sign_up_res = self.client.get(sign_up_url)
+        self.assertEqual(sign_up_res.status_code, 200)
+
+    def test_get_302(self):
+        # sign out view
+        sign_out_url = reverse('sign_out')
+        sign_out_res = self.client.get(sign_out_url)
+        self.assertEqual(sign_out_res.status_code, 302)
+
         # revengepanel view
         revengepanel_url = reverse('RevengePanel')
         revengepanel_res = self.client.get(revengepanel_url)
@@ -47,26 +59,37 @@ class RevengeBookTestCase(TestCase):
         see_profile_res = self.client.get(see_profile_url)
         self.assertEqual(see_profile_res.status_code, 302)
 
-        # sign up view
-        sign_up_url = reverse('sign_up')
-        sign_up_res = self.client.get(sign_up_url)
-        self.assertEqual(sign_up_res.status_code, 200)
-
-        # sign out view
-        sign_out_url = reverse('sign_out')
-        sign_out_res = self.client.get(sign_out_url)
-        self.assertEqual(sign_out_res.status_code, 302)
-
     def test_get_200_with_login(self):
         User = get_user_model()
         username = password = 'user1'
-        self.create_user(username, password)
+        user1 = self.create_user(username, password)
         self.login(username, password)
+        # revengepanel view
         revengepanel_url = reverse('RevengePanel')
         revengepanel_res = self.client.get(revengepanel_url)
         self.assertEqual(revengepanel_res.status_code, 200)
+        # see profile view
+        see_profile_url = reverse('see_profile', kwargs={'idfriend': user1.id})
+        see_profile_res = self.client.get(see_profile_url)
+        self.assertEqual(see_profile_res.status_code, 200)
+
         self.delete_user(username)
         self.assertEqual(User.objects.filter(username=username).count(), 0)
+
+    def test_post_forms(self):
+        username = password = 'user1'
+        # sign up view
+        sign_up_url = reverse('sign_up')
+        sign_up_res = self.client.post(sign_up_url, {'username': username,
+                                                     'password': password,
+                                                     'validate_password': password})
+        self.assertEqual(sign_up_res.status_code, 200)
+        # index view
+        index_url = reverse('index')
+        index_res = self.client.post(index_url, {'username': username,
+                                                 'password': password})
+        self.assertEqual(index_res.status_code, 200)
+        self.delete_user(username)
 
     def test_friends(self):
         user1 = self.create_user('user1', 'user1')
