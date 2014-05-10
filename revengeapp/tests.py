@@ -135,7 +135,7 @@ class RevengeBookTestCase(TestCase):
         add_friend_res = self.client.get(add_friend_url, {'friendId': user1.id})
         self.assertEqual(add_friend_res.status_code, 200)
         # search_friend view
-        search_friend_url = reverse('search_friend')
+        search_friend_url = reverse('searchFriend')
         search_friend_res = self.client.post(search_friend_url, {'searchFriendNavBar': 'user1'})
         self.assertEqual(search_friend_res.status_code, 200)
 

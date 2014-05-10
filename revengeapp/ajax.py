@@ -8,8 +8,9 @@ from django.utils.html import strip_tags
 from django.utils.simplejson import dumps, loads, JSONEncoder
 
 from revengeapp.forms import RevengeMilestoneForm
-from revengeapp.models import User, revengeMilestone, revengePoint
+from revengeapp.models import User, revengeMilestone
 from revengeBook import settings
+
 
 # extend simplejson to allow serializing django queryset objects directly
 # Thanks to: chriszweber. https://djangosnippets.org/snippets/2656/
@@ -42,18 +43,22 @@ def add_milestone(request):
     if request.method == 'POST':
         data = request.POST
     form = RevengeMilestoneForm(data=data)
+    #import ipdb; ipdb.set_trace()
     if form.is_valid():
-        friend = User.objects.get(id=request.POST.get("friendId", ""))
+        friend = User.objects.get(id=request.POST.get("affected", ""))
+        revengeMilestone = form.save(user=user)
+        '''
         point = revengePoint.objects.get(id=request.POST.get("point", ""))
         obRevengeMilestone = revengeMilestone.objects.create(owner=user,
                                                  affected=friend, point=point)
         obRevengeMilestone.comment = request.POST.get("comment", "")
         obRevengeMilestone.save()
+        '''
         jsonresponse = {'response': True}
         subject, from_email, to = 'Nueva venganza recibida', settings.DEFAULT_FROM_EMAIL, friend.email
         html_content = render_to_string('revengeapp/email_sendmilestone.html',
                                         {'user': user,
-                                         'milestone': obRevengeMilestone,
+                                         'milestone': revengeMilestone,
                                          })
         text_content = strip_tags(html_content)
         msg = EmailMultiAlternatives(subject, text_content, from_email, [to])

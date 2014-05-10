@@ -77,8 +77,10 @@ function searchFriend(sectionLoad){
 			//console.log(data.friends);
 			var resultSeach = "";
 			$.each(data.friends, function(i, friend){
-				resultSeach += '<li><a href="/profile/'+friend.id+'" target="_blank">'+
-				'<span class="glyphicon glyphicon-plus pull-right" onclick="sendFriendRequest(\''+friend.id+'\')"></span>'+friend.username+'</a></li>';
+				resultSeach += '<li><div class="dropDownElement">'+
+				'<a href="#" onclick="sendFriendRequest(\''+friend.id+'\')"><span class="glyphicon glyphicon-plus pull-right dropDownIcon"></span></a>'+
+				'<a href="/profile/'+friend.id+'" target="_blank"><span class="glyphicon glyphicon-eye-open pull-right"></span></a>'+
+				''+friend.username+'</div></li>';
 				console.log(friend.id);
 				console.log(friend.username);
 				console.log(friend.first_name);
@@ -109,7 +111,7 @@ function searchMyFriend(sectionLoad){
 		console.log(data.response)
 		if(data.response==true) {
 			var resultSeach = "";
-			var idSelected = $('#friendId').val();
+			var idSelected = $('#affected').val();
 			var classSelected = "";
 			$.each(data.friends, function(i, friend){
 				if(idSelected == friend.id){
@@ -118,7 +120,7 @@ function searchMyFriend(sectionLoad){
 					classSelected=''
 				}
 				resultSeach += '<li id="searchFriendFormRevenge_'+friend.id+'" '+classSelected+'>'+
-				'<a href="#" onclick="selectAddFriend(\''+friend.id+'\'); return false;">'+
+				'<a href="#" onclick="selectAddFriend(\''+friend.id+'\',\''+friend.username+'\'); return false;">'+
 				friend.username+'</a></li>';
 				console.log(friend.id);
 				console.log(friend.username);
@@ -138,9 +140,10 @@ function searchMyFriend(sectionLoad){
 $('#searchFriendFormRevenge').keyup(function() {
 	searchMyFriend('searchFriendFormRevenge');
 });
-function selectAddFriend(id){
+function selectAddFriend(id,name){
+	$('#searchFriendFormRevenge').val(name);
 	$('#searchFriendFormRevengeMenu').css('display','none');
-	$('#friendId').val(id)
+	$('#affected').val(id)
 	$('#searchFriendFormRevenge_'+id).addClass();
 }
 

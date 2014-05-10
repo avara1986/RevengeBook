@@ -19,10 +19,15 @@
 		  	{{ form.email.errors }}
 		  </div>
 		  <div class="form-group">
-		    <label for="exampleInputPassword1">Password</label>
+		    <label for="exampleInputPassword1">Contraseña</label>
 		    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
 		  	{{ form.password.errors }}
 		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">Confirmar contraseña</label>
+		    <input type="password" class="form-control" name="validate_password" id="validate_password" placeholder="Password">
+		  	{{ form.validate_password.errors }}
+		  </div>		  
 		  <button type="submit" class="btn btn-default">Register</button>
 		</form>
     </div>

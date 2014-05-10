@@ -60,10 +60,9 @@ def sign_up(request):
         user = form.save()
         login(request, user)
         return HttpResponseRedirect(reverse('RevengePanel'))
-    return render_to_response('revengeapp/register.html',
+    return render_to_response('revengeapp/sign-up.html',
                               {'form': form, },
                               context_instance=RequestContext(request))
-
 
 @login_required
 def revenge_panel(request):

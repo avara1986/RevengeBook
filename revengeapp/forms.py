@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import ugettext_lazy as _
 
-from revengeapp.models import revengeMilestone
+from revengeapp.models import User, revengeMilestone, revengePoint
 
 
 class RevengeUserCreationForm(UserCreationForm):
@@ -94,14 +94,15 @@ class SignUpForm(forms.ModelForm):
         return authenticate(username=user.username, password=clean_password)
 
 
-class RevengeMilestoneForm(forms.Form):
+class RevengeMilestoneForm(forms.ModelForm):
 
     class Meta:
         model = revengeMilestone
-    #friend = forms.CharField(max_length=100, required=True)
-    #point = forms.CharField(max_length=100, required=True)
-    #comment = forms.CharField(max_length=250, required=True)
 
-
-class AddFriendForm(forms.Form):
-    friend = forms.CharField(max_length=100, required=True)
+    def save(self, commit=True, user=User):
+        milestone = super(RevengeMilestoneForm, self).save(commit=False)
+        milestone.owner = user
+        #milestone.point = revengePoint.objects.get(id=self.cleaned_data.get('point'))
+        #milestone.affected = User.objects.get(id=self.cleaned_data.get('affected'))
+        if commit:
+            return milestone.save()

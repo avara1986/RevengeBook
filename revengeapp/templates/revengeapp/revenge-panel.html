@@ -7,14 +7,24 @@
 			<div class="panel-body">
 				<form role="form" id="formRevengeMiltestone" name="formRevengeMiltestone" action="" method="POST">
 					{% csrf_token %}
+					<input type="hidden" name="owner" id="owner" value="{{ user.id }}">
 					<div class="form-group">
 						<label for="exampleInputEmail1">Title</label>
 						<input type="text" class="form-control required" name="title" id="title" placeholder="I'm wathing you!" required>
 						{{ formRevengeMiltestone.title.errors }}
 					</div>
 					<div class="form-group">
-						<label for="exampleInputPassword1">Revenge type</label>
-						<select class="form-control required" name="point" id="point" placeholder="Tu mensaje" required>
+						<label for="exampleInputPassword1">Categorías</label>
+						<select class="form-control required" name="cat" id="cat" placeholder="Seleccione..." required>
+							{% for cat in revCats %}
+								<option value="{{ cat.id }}">{{ cat.title }}</option>
+							{% endfor %}
+						</select>
+						{{ formRevengeMiltestone.point.errors }}
+					</div>					
+					<div class="form-group">
+						<label for="exampleInputPassword1">Tipo de venganza</label>
+						<select class="form-control required" name="point" id="point" placeholder="Seleccione...">
 							{% for point in revPoints %}
 								<option value="{{ point.id }}">{{ point.title }}</option>
 							{% endfor %}
@@ -24,7 +34,7 @@
 					<div class="form-group">
 						<label for="exampleInputPassword1">Affected/friend</label>
 						<div class="input-group">
-							<input type="hidden" name="friendId" id="friendId" required>
+							<input type="hidden" name="affected" id="affected" required>
 							<input class="form-control" id="searchFriendFormRevenge" name="searchFriendFormRevenge" type="text" autocomplete="off">
 							<div class="input-group-btn">
 								<div id="searchFriendFormRevengeShow" >
@@ -61,12 +71,12 @@
 			{% if milestone.tome %}
 				<div class="panel panel-info">
 					<div class="panel-heading">
-						<h3 class="panel-title"> {{ milestone.route }}: <a href="/profile/{{ milestone.affected.pk }}">{{ milestone.affected.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
+						<h3 class="panel-title"> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.affected.pk %}">{{ milestone.affected.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
 					</div> 
 			{% else %}
 				<div class="panel panel-warning">
 					<div class="panel-heading">					
-						<h3 class="panel-title"> {{ milestone.route }}: <a href="/profile/{{ milestone.owner.pk }}">{{ milestone.owner.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
+						<h3 class="panel-title"> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.owner.pk %}">{{ milestone.owner.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
 					</div>
 					{% endif %}
 			<div class="panel-body">
