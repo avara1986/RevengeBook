@@ -89,7 +89,7 @@ class RevengeBookTestCase(TestCase):
         sign_out_res = self.client.get(sign_out_url)
         self.assertEqual(sign_out_res.status_code, 302)
         # search_friend view
-        search_friend_url = reverse('search_friend')
+        search_friend_url = reverse('searchFriend')
         search_friend_res = self.client.post(search_friend_url)
         self.assertEqual(search_friend_res.status_code, 302)
 

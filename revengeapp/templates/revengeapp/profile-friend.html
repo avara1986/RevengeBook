@@ -1,25 +1,53 @@
 {% extends "revengeapp/revenge-panel.html" %}
-{% block revengepanel_content %}
-	<h2>{{ friend.username }}</h2>
-    <p>
-    {{ friend.first_name }} {{ friend.last_name }}<br/>
-    {{ friend.email }}
-    </p>
+
+{% block revengepanel_profile_user %}
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sd-3">
+			<div class="label label-primary" style="width: 100%; float: left; "><h4>{{ friend.username }}</h4></div>
+			<div class="pull-left" >
+				<img src="{{ MEDIA_URL }}{{ friend.avatar }}" style="width:100%"/>
+			</div>
+		</div>
+		<div class="col-lg-9 col-md-9 col-sd-9">
+			<h3>Título</h3>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sd-6">
+			<div class="row">
+				{% for cat in totalPointsCats %}
+				<div class="col-lg-6 col-md-6 col-sd-6">
+				<b>{{ cat.title }}:</b> {{ cat.milestones }}
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ cat.milestones_percent }}%">
+						<span class="sr-only">{{ cat.milestones_percent }}%</span>
+					</div>
+				</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sd-3">
+			<h4>Enviadas <span class="badge pull-right">{{ totalMilestonesSend }}</span></h4>
+			<h4>Recibidas <span class="badge pull-right">{{ totalMilestonesReveived }}</span></h4>
+		</div>		
+	</div>
+{% endblock %}
+{% block revengepanel_content %}	
     {% for milestone in milestones %}
 		{% if milestone.tome %}
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title"> {{ milestone.route }}: <a href="/profile/{{ milestone.affected.pk }}">{{ milestone.affected.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
-				</div> 
+				</div>
+			</div>
 		{% else %}
 			<div class="panel panel-warning">
 				<div class="panel-heading">					
 					<h3 class="panel-title"> {{ milestone.route }}: <a href="/profile/{{ milestone.owner.pk }}">{{ milestone.owner.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
 				</div>
-				{% endif %}
+			</div>
+		{% endif %}
 		<div class="panel-body">
-		<img src="{{ MEDIA_URL }}{{ milestone.point.image }}" style="width:95px"/> {{ milestone.comment }}
+			<img src="{{ MEDIA_URL }}{{ milestone.point.image }}" style="width:95px"/> {{ milestone.comment }}
 		</div>
-		</div>
-	{% endfor %}    
+	{% endfor %}
 {% endblock %}

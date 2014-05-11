@@ -9,7 +9,7 @@ from django.template import RequestContext
 from django.utils.translation import ugettext as _
 
 from revengeapp.forms import SignInForm, SignUpForm
-from revengeapp.models import User, revengeMilestone
+from revengeapp.models import User, revengeMilestone, revengePointCat
 # Create your views here.
 
 
@@ -64,9 +64,13 @@ def sign_up(request):
                               {'form': form, },
                               context_instance=RequestContext(request))
 
+
 @login_required
 def revenge_panel(request):
     user = request.user
+    revCats = revengePointCat.objects.all()
+    for cat in revCats:
+        cat.milestones = revengeMilestone.objects.filter(Q(affected=user), Q(point=cat)).order_by('-milestone_date').count()
 
     milestones = revengeMilestone.objects.filter(Q(owner=user) | Q(affected=user)).order_by('-milestone_date')
     #import ipdb; ipdb.set_trace()
@@ -80,6 +84,7 @@ def revenge_panel(request):
     return render_to_response('revengeapp/revenge-panel.html', {
                                'friendsList': user.friends.all(),
                                'milestones': milestones,
+                               'totalPoints': revCats,
                                },
                               context_instance=RequestContext(request))
 
@@ -103,6 +108,7 @@ def see_profile(request, idfriend):
         return HttpResponseRedirect(reverse('RevengePanel'))
     friend = User.objects.get(id=idfriend)
     milestones = revengeMilestone.objects.filter(Q(owner=friend) | Q(affected=friend)).order_by('-milestone_date')
+
     #import ipdb; ipdb.set_trace()
     for milestone in milestones:
         if milestone.owner == friend:
@@ -111,8 +117,26 @@ def see_profile(request, idfriend):
         else:
             milestone.tome = False
             milestone.route = 'Form'
+
+    totalMilestonesSend = revengeMilestone.objects.filter(owner=friend).count()
+    totalMilestonesReveived = revengeMilestone.objects.filter(affected=friend).count()
+
+    revCats = revengePointCat.objects.all()
+    milestonesMax = 0
+    for cat in revCats:
+        cat.milestones = revengeMilestone.objects.filter(Q(affected=friend), Q(point=cat)).count()
+        if milestonesMax < cat.milestones:
+            milestonesMax = cat.milestones
+    for cat in revCats:
+        if milestonesMax > 0:
+            cat.milestones_percent = (float(cat.milestones) / float(milestonesMax)) * 100
+        else:
+            cat.milestones_percent = 0
     return render_to_response('revengeapp/profile-friend.html', {
                                'friend': friend,
                                'milestones': milestones,
+                               'totalPointsCats': revCats,
+                               'totalMilestonesSend': totalMilestonesSend,
+                               'totalMilestonesReveived': totalMilestonesReveived,
                                },
                               context_instance=RequestContext(request))

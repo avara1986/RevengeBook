@@ -1,7 +1,7 @@
 ﻿{% extends "revengeapp/base.html" %}
 {% block content %}
 <div class="row ">
-    <div class="col-lg-3 col-md-3">
+	<div class="col-lg-3 col-md-3">
 		<div class="panel panel-default">
 			<div class="panel-heading">Send Revenge</div>
 			<div class="panel-body">
@@ -59,41 +59,65 @@
 						All fields are mandatory
 					</div>
 				</form>
-		  </div>
-		</div>    
-    </div>
-    <div class="col-lg-9 col-md-9">
-    {% block revengepanel_content %}
-	    <p>
-	    Minions ipsum ti aamoo! Voluptate velit aaaaaah consequat. Ex exercitation laboris jeje aliqua exercitation ex tatata bala tu nostrud. Jiji tempor sed bananaaaa aaaaaah enim minim belloo! Enim. Cillum bee do bee do bee do aliqua nostrud duis baboiii qui baboiii. Officia elit enim incididunt et daa incididunt aute. Para tu magna chasy reprehenderit exercitation voluptate commodo minim belloo! Officia hana dul sae.
-	    </p>
-	    {% for milestone in milestones %}
-			{% if milestone.tome %}
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h3 class="panel-title"> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.affected.pk %}">{{ milestone.affected.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
-					</div> 
-			{% else %}
-				<div class="panel panel-warning">
-					<div class="panel-heading">					
-						<h3 class="panel-title"> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.owner.pk %}">{{ milestone.owner.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
-					</div>
-					{% endif %}
-			<div class="panel-body">
-				<div class="media">
-					<div class="pull-left" >
-						<img src="{{ MEDIA_URL }}{{ milestone.point.image }}" style="width:95px"/>
-					</div>
-					<div class="media-body">
-						<blockquote>
-							{{ milestone.comment }}
-						</blockquote>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-9 col-md-9">
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+					{% block revengepanel_profile_user %}
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-sd-3">
+								<div class="media">
+									<div class="pull-left" >
+										<img src="{{ MEDIA_URL }}{{ user.avatar }}" style="width:95px"/>
+										<div>{{ user.username }}</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-9 col-md-9 col-sd-9">
+								<h3>Título</h3>
+							</div>
+						</div>
+					{% endblock %}
 					</div>
 				</div>
 			</div>
-			</div>
-		{% endfor %}
-	{% endblock %}
+		</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+			{% block revengepanel_content %}
+				{% for milestone in milestones %}
+					{% if milestone.tome %}
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<h3 class="panel-title"> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.affected.pk %}">{{ milestone.affected.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
+							</div>
+						</div>
+					{% else %}
+						<div class="panel panel-warning">
+							<div class="panel-heading">
+								<h3 class="panel-title"> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.owner.pk %}">{{ milestone.owner.username }}</a> <span class="label label-info" style="float:right" >{{ milestone.milestone_date }}</span></h3>
+							</div>
+						</div>
+					{% endif %}
+					<div class="panel-body">
+						<div class="media">
+							<div class="pull-left" >
+								<img src="{{ MEDIA_URL }}{{ milestone.point.image }}" style="width:95px"/>
+							</div>
+							<div class="media-body">
+								<blockquote>
+									{{ milestone.comment }}
+								</blockquote>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			{% endblock %}
+		</div>
 	</div>
 </div>
 {% endblock %}
