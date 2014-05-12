@@ -1,4 +1,5 @@
 # encoding: utf-8
+from datetime import date
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -7,7 +8,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
-
 from revengeapp.forms import SignInForm, SignUpForm
 from revengeapp.models import User, revengeMilestone, revengePointCat
 # Create your views here.
@@ -67,6 +67,7 @@ def sign_up(request):
 
 @login_required
 def revenge_panel(request):
+    actualYear = date.today().year
     user = request.user
     revCats = revengePointCat.objects.all()
     for cat in revCats:
@@ -77,10 +78,10 @@ def revenge_panel(request):
     for milestone in milestones:
         if milestone.owner == user:
             milestone.tome = True
-            milestone.route = 'To'
+            milestone.route = 'Para'
         else:
             milestone.tome = False
-            milestone.route = 'Form'
+            milestone.route = 'De'
     return render_to_response('revengeapp/revenge-panel.html', {
                                'friendsList': user.friends.all(),
                                'milestones': milestones,
@@ -113,10 +114,10 @@ def see_profile(request, idfriend):
     for milestone in milestones:
         if milestone.owner == friend:
             milestone.tome = True
-            milestone.route = 'To'
+            milestone.route = 'Para'
         else:
             milestone.tome = False
-            milestone.route = 'Form'
+            milestone.route = 'De'
 
     totalMilestonesSend = revengeMilestone.objects.filter(owner=friend).count()
     totalMilestonesReveived = revengeMilestone.objects.filter(affected=friend).count()
@@ -124,7 +125,7 @@ def see_profile(request, idfriend):
     revCats = revengePointCat.objects.all()
     milestonesMax = 0
     for cat in revCats:
-        cat.milestones = revengeMilestone.objects.filter(Q(affected=friend), Q(point=cat)).count()
+        cat.milestones = revengeMilestone.objects.filter(Q(affected=friend), Q(point__cat=cat)).count()
         if milestonesMax < cat.milestones:
             milestonesMax = cat.milestones
     for cat in revCats:

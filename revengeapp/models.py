@@ -42,7 +42,8 @@ class revengePoint(models.Model):
 @python_2_unicode_compatible
 class revengeMilestone(models.Model):
     title = models.CharField(verbose_name=_('title'),
-                              max_length=230)
+                            blank=True,
+                            max_length=230)
     milestone_date = models.DateTimeField(verbose_name=_("Milestone date"),
                               auto_now_add=True)
     owner = models.ForeignKey(User, verbose_name=_('Owner'),
