@@ -20,8 +20,8 @@ More info in:
 
 https://github.com/openwebinars-django/pitble
 
-Installation
-============
+Installation Basics
+===================
 
 * In your settings:
 
@@ -34,6 +34,22 @@ Installation
 	EMAIL_USE_TLS = True
 	DEFAULT_FROM_EMAIL = 'no-reply@your-domain.es'
 
+Lunch virtual env:
+
+::
+
+	source vrevengeBoo1/bin/activate
+
+Export Data:
+
+::
+	python manage.py dumpdata --indent=2 > data_initial.json
+	
+Load Data:
+
+::
+	python manage.py loaddata data_initial.json
+	
 Executing the test
 ==================
 
@@ -67,6 +83,18 @@ Executing the test with tox and coverage
     coverage report -m
     coverage html
     chromium-browser htmlcov/index.html  # or another browser
+
+Requirements
+============
+
+::
+	argparse (1.2.1)
+	Django (1.6.5)
+	Pillow (2.4.0)
+	pip (1.5.5)
+	setuptools (3.4.4)
+	wsgiref (0.1.2)
+
 
 Special Thanks
 ==============

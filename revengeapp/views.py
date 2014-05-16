@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from revengeapp.forms import SignInForm, SignUpForm
-from revengeapp.models import User, revengeMilestone, revengePointCat
+from revengeapp.models import revengeCat, revengeExpLog, revengeMilestone, User
 # Create your views here.
 
 
@@ -69,9 +69,9 @@ def sign_up(request):
 def revenge_panel(request):
     actualYear = date.today().year
     user = request.user
-    revCats = revengePointCat.objects.all()
+    revCats = revengeCat.objects.all()
     for cat in revCats:
-        cat.milestones = revengeMilestone.objects.filter(Q(affected=user), Q(point=cat)).order_by('-milestone_date').count()
+        cat.milestones = revengeMilestone.objects.filter(Q(affected=user), Q(cat=cat)).order_by('-milestone_date').count()
 
     milestones = revengeMilestone.objects.filter(Q(owner=user) | Q(affected=user)).order_by('-milestone_date')
     #import ipdb; ipdb.set_trace()
@@ -89,6 +89,14 @@ def revenge_panel(request):
                                },
                               context_instance=RequestContext(request))
 
+@login_required
+def revenge_panel_history(request):
+    user = request.user
+    logs = revengeExpLog.objects.filter(Q(owner=user)).order_by('-log_date')
+    return render_to_response('revengeapp/revenge-panel_history.html', {
+                               'logs': logs,
+                               },
+                              context_instance=RequestContext(request))
 
 @login_required
 def search_friend(request):
@@ -109,7 +117,7 @@ def see_profile(request, idfriend):
         return HttpResponseRedirect(reverse('RevengePanel'))
     friend = User.objects.get(id=idfriend)
     milestones = revengeMilestone.objects.filter(Q(owner=friend) | Q(affected=friend)).order_by('-milestone_date')
-
+    friend.exp_percet = (float(friend.experience_actual) / float(friend.level.points)) * 100
     #import ipdb; ipdb.set_trace()
     for milestone in milestones:
         if milestone.owner == friend:
@@ -122,10 +130,10 @@ def see_profile(request, idfriend):
     totalMilestonesSend = revengeMilestone.objects.filter(owner=friend).count()
     totalMilestonesReveived = revengeMilestone.objects.filter(affected=friend).count()
 
-    revCats = revengePointCat.objects.all()
+    revCats = revengeCat.objects.all()
     milestonesMax = 0
     for cat in revCats:
-        cat.milestones = revengeMilestone.objects.filter(Q(affected=friend), Q(point__cat=cat)).count()
+        cat.milestones = revengeMilestone.objects.filter(Q(affected=friend), Q(cat=cat)).count()
         if milestonesMax < cat.milestones:
             milestonesMax = cat.milestones
     for cat in revCats:

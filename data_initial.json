@@ -1,0 +1,958 @@
+[
+{
+  "pk": 1, 
+  "model": "contenttypes.contenttype", 
+  "fields": {
+    "model": "logentry", 
+    "name": "log entry", 
+    "app_label": "admin"
+  }
+},
+{
+  "pk": 2, 
+  "model": "contenttypes.contenttype", 
+  "fields": {
+    "model": "permission", 
+    "name": "permission", 
+    "app_label": "auth"
+  }
+},
+{
+  "pk": 3, 
+  "model": "contenttypes.contenttype", 
+  "fields": {
+    "model": "group", 
+    "name": "group", 
+    "app_label": "auth"
+  }
+},
+{
+  "pk": 4, 
+  "model": "contenttypes.contenttype", 
+  "fields": {
+    "model": "contenttype", 
+    "name": "content type", 
+    "app_label": "contenttypes"
+  }
+},
+{
+  "pk": 5, 
+  "model": "contenttypes.contenttype", 
+  "fields": {
+    "model": "session", 
+    "name": "session", 
+    "app_label": "sessions"
+  }
+},
+{
+  "pk": 6, 
+  "model": "contenttypes.contenttype", 
+  "fields": {
+    "model": "revengecat", 
+    "name": "revenge cat", 
+    "app_label": "revengeapp"
+  }
+},
+{
+  "pk": 7, 
+  "model": "contenttypes.contenttype", 
+  "fields": {
+    "model": "revengelvl", 
+    "name": "revenge lvl", 
+    "app_label": "revengeapp"
+  }
+},
+{
+  "pk": 8, 
+  "model": "contenttypes.contenttype", 
+  "fields": {
+    "model": "user", 
+    "name": "user", 
+    "app_label": "revengeapp"
+  }
+},
+{
+  "pk": 9, 
+  "model": "contenttypes.contenttype", 
+  "fields": {
+    "model": "revengemilestone", 
+    "name": "revenge milestone", 
+    "app_label": "revengeapp"
+  }
+},
+{
+  "pk": 10, 
+  "model": "contenttypes.contenttype", 
+  "fields": {
+    "model": "revengeexptype", 
+    "name": "revenge exp type", 
+    "app_label": "revengeapp"
+  }
+},
+{
+  "pk": 11, 
+  "model": "contenttypes.contenttype", 
+  "fields": {
+    "model": "revengeexplog", 
+    "name": "revenge exp log", 
+    "app_label": "revengeapp"
+  }
+},
+{
+  "pk": "lbj7ffumyjuw2t3a3uoxjeozwfv9z55p", 
+  "model": "sessions.session", 
+  "fields": {
+    "expire_date": "2014-05-30T10:25:32.047Z", 
+    "session_data": "Y2RhNTk0NGQ1NmM2OTdlZmUyZTJhYjMzNDczNTQ2MzhmNjNiN2Q1Mjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0="
+  }
+},
+{
+  "pk": "x9cn72x5hme6donvni995k8qchwk98mn", 
+  "model": "sessions.session", 
+  "fields": {
+    "expire_date": "2014-05-30T08:52:47.920Z", 
+    "session_data": "Y2RhNTk0NGQ1NmM2OTdlZmUyZTJhYjMzNDczNTQ2MzhmNjNiN2Q1Mjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0="
+  }
+},
+{
+  "pk": "yfhlu4qvket3vy582rl6qcfy3mfp4qyu", 
+  "model": "sessions.session", 
+  "fields": {
+    "expire_date": "2014-05-29T22:05:16.795Z", 
+    "session_data": "MmIwOGIyN2E4Nzk2YzVlYzQxZThmZGRiNDQ0MjBiOWI1OWVhZGQ3NTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="
+  }
+},
+{
+  "pk": 1, 
+  "model": "revengeapp.revengecat", 
+  "fields": {
+    "image": "", 
+    "title": "Trabajo"
+  }
+},
+{
+  "pk": 2, 
+  "model": "revengeapp.revengecat", 
+  "fields": {
+    "image": "", 
+    "title": "Amigos"
+  }
+},
+{
+  "pk": 3, 
+  "model": "revengeapp.revengecat", 
+  "fields": {
+    "image": "", 
+    "title": "Pareja"
+  }
+},
+{
+  "pk": 4, 
+  "model": "revengeapp.revengecat", 
+  "fields": {
+    "image": "", 
+    "title": "Compa\u00f1eros de clase"
+  }
+},
+{
+  "pk": 1, 
+  "model": "revengeapp.revengelvl", 
+  "fields": {
+    "points": 7, 
+    "title": "Nivel 1"
+  }
+},
+{
+  "pk": 2, 
+  "model": "revengeapp.revengelvl", 
+  "fields": {
+    "points": 20, 
+    "title": "Nivel 2"
+  }
+},
+{
+  "pk": 3, 
+  "model": "revengeapp.revengelvl", 
+  "fields": {
+    "points": 50, 
+    "title": "Nivel 3"
+  }
+},
+{
+  "pk": 4, 
+  "model": "revengeapp.revengelvl", 
+  "fields": {
+    "points": 90, 
+    "title": "Nivel 4"
+  }
+},
+{
+  "pk": 5, 
+  "model": "revengeapp.revengelvl", 
+  "fields": {
+    "points": 140, 
+    "title": "Nivel 5"
+  }
+},
+{
+  "pk": 6, 
+  "model": "revengeapp.revengelvl", 
+  "fields": {
+    "points": 200, 
+    "title": "Nivel 6"
+  }
+},
+{
+  "pk": 1, 
+  "model": "revengeapp.revengeexptype", 
+  "fields": {
+    "tag": "send_milestone", 
+    "points": 5, 
+    "title": "Mandar venganda"
+  }
+},
+{
+  "pk": 2, 
+  "model": "revengeapp.revengeexptype", 
+  "fields": {
+    "tag": "validate_milestone", 
+    "points": 1, 
+    "title": "Validar venganza"
+  }
+},
+{
+  "pk": 3, 
+  "model": "revengeapp.revengeexptype", 
+  "fields": {
+    "tag": "diary_access", 
+    "points": 1, 
+    "title": "Acceder a RB"
+  }
+},
+{
+  "pk": 1, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "add_logentry", 
+    "name": "Can add log entry", 
+    "content_type": 1
+  }
+},
+{
+  "pk": 2, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "change_logentry", 
+    "name": "Can change log entry", 
+    "content_type": 1
+  }
+},
+{
+  "pk": 3, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "delete_logentry", 
+    "name": "Can delete log entry", 
+    "content_type": 1
+  }
+},
+{
+  "pk": 4, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "add_permission", 
+    "name": "Can add permission", 
+    "content_type": 2
+  }
+},
+{
+  "pk": 5, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "change_permission", 
+    "name": "Can change permission", 
+    "content_type": 2
+  }
+},
+{
+  "pk": 6, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "delete_permission", 
+    "name": "Can delete permission", 
+    "content_type": 2
+  }
+},
+{
+  "pk": 7, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "add_group", 
+    "name": "Can add group", 
+    "content_type": 3
+  }
+},
+{
+  "pk": 8, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "change_group", 
+    "name": "Can change group", 
+    "content_type": 3
+  }
+},
+{
+  "pk": 9, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "delete_group", 
+    "name": "Can delete group", 
+    "content_type": 3
+  }
+},
+{
+  "pk": 10, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "add_contenttype", 
+    "name": "Can add content type", 
+    "content_type": 4
+  }
+},
+{
+  "pk": 11, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "change_contenttype", 
+    "name": "Can change content type", 
+    "content_type": 4
+  }
+},
+{
+  "pk": 12, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "delete_contenttype", 
+    "name": "Can delete content type", 
+    "content_type": 4
+  }
+},
+{
+  "pk": 13, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "add_session", 
+    "name": "Can add session", 
+    "content_type": 5
+  }
+},
+{
+  "pk": 14, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "change_session", 
+    "name": "Can change session", 
+    "content_type": 5
+  }
+},
+{
+  "pk": 15, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "delete_session", 
+    "name": "Can delete session", 
+    "content_type": 5
+  }
+},
+{
+  "pk": 16, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "add_revengecat", 
+    "name": "Can add revenge cat", 
+    "content_type": 6
+  }
+},
+{
+  "pk": 17, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "change_revengecat", 
+    "name": "Can change revenge cat", 
+    "content_type": 6
+  }
+},
+{
+  "pk": 18, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "delete_revengecat", 
+    "name": "Can delete revenge cat", 
+    "content_type": 6
+  }
+},
+{
+  "pk": 19, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "add_revengelvl", 
+    "name": "Can add revenge lvl", 
+    "content_type": 7
+  }
+},
+{
+  "pk": 20, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "change_revengelvl", 
+    "name": "Can change revenge lvl", 
+    "content_type": 7
+  }
+},
+{
+  "pk": 21, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "delete_revengelvl", 
+    "name": "Can delete revenge lvl", 
+    "content_type": 7
+  }
+},
+{
+  "pk": 22, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "add_user", 
+    "name": "Can add user", 
+    "content_type": 8
+  }
+},
+{
+  "pk": 23, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "change_user", 
+    "name": "Can change user", 
+    "content_type": 8
+  }
+},
+{
+  "pk": 24, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "delete_user", 
+    "name": "Can delete user", 
+    "content_type": 8
+  }
+},
+{
+  "pk": 25, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "add_revengemilestone", 
+    "name": "Can add revenge milestone", 
+    "content_type": 9
+  }
+},
+{
+  "pk": 26, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "change_revengemilestone", 
+    "name": "Can change revenge milestone", 
+    "content_type": 9
+  }
+},
+{
+  "pk": 27, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "delete_revengemilestone", 
+    "name": "Can delete revenge milestone", 
+    "content_type": 9
+  }
+},
+{
+  "pk": 28, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "add_revengeexptype", 
+    "name": "Can add revenge exp type", 
+    "content_type": 10
+  }
+},
+{
+  "pk": 29, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "change_revengeexptype", 
+    "name": "Can change revenge exp type", 
+    "content_type": 10
+  }
+},
+{
+  "pk": 30, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "delete_revengeexptype", 
+    "name": "Can delete revenge exp type", 
+    "content_type": 10
+  }
+},
+{
+  "pk": 31, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "add_revengeexplog", 
+    "name": "Can add revenge exp log", 
+    "content_type": 11
+  }
+},
+{
+  "pk": 32, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "change_revengeexplog", 
+    "name": "Can change revenge exp log", 
+    "content_type": 11
+  }
+},
+{
+  "pk": 33, 
+  "model": "auth.permission", 
+  "fields": {
+    "codename": "delete_revengeexplog", 
+    "name": "Can delete revenge exp log", 
+    "content_type": 11
+  }
+},
+{
+  "pk": 1, 
+  "model": "revengeapp.user", 
+  "fields": {
+    "username": "root", 
+    "experience_actual": null, 
+    "first_name": "", 
+    "last_name": "", 
+    "level": null, 
+    "experience_total": null, 
+    "is_active": true, 
+    "is_superuser": true, 
+    "is_staff": true, 
+    "last_login": "2014-05-15T22:05:16.734Z", 
+    "avatar": "", 
+    "groups": [], 
+    "user_permissions": [], 
+    "password": "pbkdf2_sha256$12000$R34EBnWYaP9H$PogfdToSxkzwAvMhMjys9kXzXc7WWK2hwZX61Ftpxnc=", 
+    "friends": [], 
+    "email": "a.vara.1986@gmail.com", 
+    "date_joined": "2014-05-15T21:51:10.819Z"
+  }
+},
+{
+  "pk": 2, 
+  "model": "revengeapp.user", 
+  "fields": {
+    "username": "test1", 
+    "experience_actual": 3, 
+    "first_name": "Alberto", 
+    "last_name": "Vara", 
+    "level": 2, 
+    "experience_total": 10, 
+    "is_active": true, 
+    "is_superuser": false, 
+    "is_staff": false, 
+    "last_login": "2014-05-16T10:25:31Z", 
+    "avatar": "", 
+    "groups": [], 
+    "user_permissions": [], 
+    "password": "pbkdf2_sha256$12000$z5uovQJ8K7Ph$ygffiYdhPrf/bBvkl/3ib3UcjOHONE6CDRY/frmD2ME=", 
+    "friends": [
+      3
+    ], 
+    "email": "a.vara.1986@gmail.com", 
+    "date_joined": "2014-05-15T22:05:35Z"
+  }
+},
+{
+  "pk": 3, 
+  "model": "revengeapp.user", 
+  "fields": {
+    "username": "test2", 
+    "experience_actual": 0, 
+    "first_name": "Test 2", 
+    "last_name": "Test", 
+    "level": 1, 
+    "experience_total": 0, 
+    "is_active": true, 
+    "is_superuser": false, 
+    "is_staff": false, 
+    "last_login": "2014-05-15T22:05:40Z", 
+    "avatar": "", 
+    "groups": [], 
+    "user_permissions": [], 
+    "password": "pbkdf2_sha256$12000$agsjFjceRwC0$oT3Kk0f5sjOzRAsoWT23+lwN9pZ2JtJQu6ke0JIGNb4=", 
+    "friends": [
+      2
+    ], 
+    "email": "a.vara.1986@gmail.com", 
+    "date_joined": "2014-05-15T22:05:40Z"
+  }
+},
+{
+  "pk": 1, 
+  "model": "revengeapp.revengemilestone", 
+  "fields": {
+    "comment": "test", 
+    "affected": 3, 
+    "milestone_date": "2014-05-16T10:34:45.766Z", 
+    "cat": 1, 
+    "milestone": null, 
+    "owner": 2
+  }
+},
+{
+  "pk": 2, 
+  "model": "revengeapp.revengemilestone", 
+  "fields": {
+    "comment": "Test2", 
+    "affected": 3, 
+    "milestone_date": "2014-05-16T10:35:35.726Z", 
+    "cat": 2, 
+    "milestone": null, 
+    "owner": 2
+  }
+},
+{
+  "pk": 1, 
+  "model": "revengeapp.revengeexplog", 
+  "fields": {
+    "owner": 2, 
+    "log_date": "2014-05-16T10:34:45.981Z", 
+    "type": 1, 
+    "milestone": null
+  }
+},
+{
+  "pk": 2, 
+  "model": "revengeapp.revengeexplog", 
+  "fields": {
+    "owner": 2, 
+    "log_date": "2014-05-16T10:35:35.917Z", 
+    "type": 1, 
+    "milestone": null
+  }
+},
+{
+  "pk": 1, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:05:35.265Z", 
+    "object_repr": "test1", 
+    "object_id": "2", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 8
+  }
+},
+{
+  "pk": 2, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:05:40.803Z", 
+    "object_repr": "test2", 
+    "object_id": "3", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 8
+  }
+},
+{
+  "pk": 3, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:06:05.043Z", 
+    "object_repr": "Trabajo", 
+    "object_id": "1", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 6
+  }
+},
+{
+  "pk": 4, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:06:12.251Z", 
+    "object_repr": "Amigos", 
+    "object_id": "2", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 6
+  }
+},
+{
+  "pk": 5, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:06:16.240Z", 
+    "object_repr": "Pareja", 
+    "object_id": "3", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 6
+  }
+},
+{
+  "pk": 6, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:06:28.088Z", 
+    "object_repr": "Compa\u00f1eros de clase", 
+    "object_id": "4", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 6
+  }
+},
+{
+  "pk": 7, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:24:35.764Z", 
+    "object_repr": "Nivel 1", 
+    "object_id": "1", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 7
+  }
+},
+{
+  "pk": 8, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:30:53.610Z", 
+    "object_repr": "Nivel 2", 
+    "object_id": "2", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 7
+  }
+},
+{
+  "pk": 9, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:31:02.185Z", 
+    "object_repr": "Nivel 3", 
+    "object_id": "3", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 7
+  }
+},
+{
+  "pk": 10, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:31:09.977Z", 
+    "object_repr": "Nivel 4", 
+    "object_id": "4", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 7
+  }
+},
+{
+  "pk": 11, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:31:21.491Z", 
+    "object_repr": "Nivel 5", 
+    "object_id": "5", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 7
+  }
+},
+{
+  "pk": 12, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-15T22:31:29.282Z", 
+    "object_repr": "Nivel 6", 
+    "object_id": "6", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 7
+  }
+},
+{
+  "pk": 13, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-16T08:31:52.891Z", 
+    "object_repr": "Mandar venganda", 
+    "object_id": "1", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 10
+  }
+},
+{
+  "pk": 14, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-16T08:32:35.869Z", 
+    "object_repr": "Validar venganza", 
+    "object_id": "2", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 10
+  }
+},
+{
+  "pk": 15, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 1, 
+    "action_time": "2014-05-16T08:34:21.044Z", 
+    "object_repr": "Acceder a RB", 
+    "object_id": "3", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 10
+  }
+},
+{
+  "pk": 16, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 2, 
+    "action_time": "2014-05-16T08:51:32.073Z", 
+    "object_repr": "test1", 
+    "object_id": "2", 
+    "change_message": "Changed first_name, last_name, email, experience_total, experience_actual and level.", 
+    "user": 1, 
+    "content_type": 8
+  }
+},
+{
+  "pk": 17, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 2, 
+    "action_time": "2014-05-16T08:51:52.793Z", 
+    "object_repr": "test2", 
+    "object_id": "3", 
+    "change_message": "Changed first_name, last_name, email, experience_total, experience_actual and level.", 
+    "user": 1, 
+    "content_type": 8
+  }
+},
+{
+  "pk": 18, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 2, 
+    "action_time": "2014-05-16T10:33:32.930Z", 
+    "object_repr": "test1", 
+    "object_id": "2", 
+    "change_message": "Changed experience_total, experience_actual and level.", 
+    "user": 1, 
+    "content_type": 8
+  }
+},
+{
+  "pk": 19, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 3, 
+    "action_time": "2014-05-16T10:34:18.655Z", 
+    "object_repr": "De: test1 El 2014-05-16 10:32:44.260088+00:00", 
+    "object_id": "2", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 11
+  }
+},
+{
+  "pk": 20, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 3, 
+    "action_time": "2014-05-16T10:34:18.725Z", 
+    "object_repr": "De: test1 El 2014-05-16 10:28:18.589325+00:00", 
+    "object_id": "1", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 11
+  }
+},
+{
+  "pk": 21, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 3, 
+    "action_time": "2014-05-16T10:34:32.718Z", 
+    "object_repr": "De: test1 Para: test2 El 2014-05-16 10:32:44.052516+00:00", 
+    "object_id": "4", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 9
+  }
+},
+{
+  "pk": 22, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 3, 
+    "action_time": "2014-05-16T10:34:32.778Z", 
+    "object_repr": "De: test1 Para: test2 El 2014-05-16 10:30:16.985843+00:00", 
+    "object_id": "3", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 9
+  }
+},
+{
+  "pk": 23, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 3, 
+    "action_time": "2014-05-16T10:34:32.830Z", 
+    "object_repr": "De: test1 Para: test2 El 2014-05-16 10:28:18.417551+00:00", 
+    "object_id": "2", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 9
+  }
+},
+{
+  "pk": 24, 
+  "model": "admin.logentry", 
+  "fields": {
+    "action_flag": 3, 
+    "action_time": "2014-05-16T10:34:32.882Z", 
+    "object_repr": "De: test1 Para: test2 El 2014-05-16 10:26:02.105452+00:00", 
+    "object_id": "1", 
+    "change_message": "", 
+    "user": 1, 
+    "content_type": 9
+  }
+}
+]

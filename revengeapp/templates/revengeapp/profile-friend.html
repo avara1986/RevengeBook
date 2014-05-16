@@ -7,6 +7,14 @@
 			<div class="pull-left" >
 				<img src="{{ MEDIA_URL }}{{ friend.avatar }}" style="width:100%"/>
 			</div>
+			<div class="" style="width: 100%; float: left; ">
+				<h4>{{ friend.level.title }}</h4>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ friend.exp_percet }}%">
+						{{ friend.experience_actual }}
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="col-lg-9 col-md-9 col-sd-9">
 			<h3>Título</h3>
@@ -36,17 +44,17 @@
 		{% if milestone.tome %}
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h3 class="panel-title"> <span class="badge">{{ milestone.point.cat.title }}</span> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.affected.pk %}">{{ milestone.affected.username }}</a> </h3>
+					<h3 class="panel-title"> <span class="badge">{{ milestone.cat.title }}</span> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.affected.pk %}">{{ milestone.affected.username }}</a> </h3>
 				</div>
 		{% else %}
 			<div class="panel panel-warning">
 				<div class="panel-heading">
-					<h3 class="panel-title"> <span class="badge">{{ milestone.point.cat.title }}</span> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.owner.pk %}">{{ milestone.owner.username }}</a></h3>
+					<h3 class="panel-title"> <span class="badge">{{ milestone.cat.title }}</span> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.owner.pk %}">{{ milestone.owner.username }}</a></h3>
 				</div>
 			
 		{% endif %}
 			<div class="panel-body">
-				<img src="{{ MEDIA_URL }}{{ milestone.point.image }}" style="width:95px"/> {{ milestone.comment }}
+				<a href="{% url 'see_profile' milestone.owner.pk %}"><img src="{{ MEDIA_URL }}{{ milestone.owner.avatar }}" style="width:95px"/></a> {{ milestone.comment }}
 			</div>
 			<div class="panel-footer">
 				<div class="btn-group">

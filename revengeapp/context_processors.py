@@ -1,8 +1,6 @@
-from revengeapp.models import revengePoint, revengePointCat
+from revengeapp.models import revengeCat
 
 
 def get_revenge_points(request):
-    revCats = revengePointCat.objects.all()
-    revPoints = revengePoint.objects.all()
-    return {'revPoints': revPoints,
-            'revCats': revCats}
+    revCats = revengeCat.objects.all()
+    return {'revCats': revCats,}

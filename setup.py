@@ -11,8 +11,8 @@ def read(*rnames):
 
 setup(
     name="revengeBook",
-    version="0.0.2",
-    author="Alberto Vara, Pablo Martin, Raul Sanchez",
+    version="0.1.1",
+    author="Alberto Vara",
     author_email="goinnn@gmail.com",
     description="Django socialwebiste",
     long_description=(read('README.rst') + '\n\n' + read('CHANGES.rst')),
@@ -29,4 +29,5 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
+    test_suite='setuptest.setuptest.SetupTestSuite',
 )

@@ -2,11 +2,13 @@ from django.core.mail import EmailMultiAlternatives
 from django.core.serializers import serialize
 from django.contrib.auth.decorators import login_required
 from django.db.models.query import QuerySet
+from django.db.models import Q
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.simplejson import dumps, loads, JSONEncoder
 
+from revengeapp.experience import revengeUser
 from revengeapp.forms import RevengeMilestoneForm
 from revengeapp.models import User, revengeMilestone
 from revengeBook import settings
@@ -36,7 +38,7 @@ def add_friend(request):
 
 @login_required
 def add_milestone(request):
-    user = request.user
+    revUser = revengeUser(request.user)
     jsonresponse = {'response': "error"}
     data = None
     #import ipdb; ipdb.set_trace()
@@ -46,18 +48,12 @@ def add_milestone(request):
     #import ipdb; ipdb.set_trace()
     if form.is_valid():
         friend = User.objects.get(id=request.POST.get("affected", ""))
-        revengeMilestone = form.save(user=user)
-        '''
-        point = revengePoint.objects.get(id=request.POST.get("point", ""))
-        obRevengeMilestone = revengeMilestone.objects.create(owner=user,
-                                                 affected=friend, point=point)
-        obRevengeMilestone.comment = request.POST.get("comment", "")
-        obRevengeMilestone.save()
-        '''
+        revengeMilestone = form.save(user=revUser.get_user())
+        revUser.add_exp('send_milestone')
         jsonresponse = {'response': True}
         subject, from_email, to = 'Nueva venganza recibida', settings.DEFAULT_FROM_EMAIL, friend.email
         html_content = render_to_string('revengeapp/email_sendmilestone.html',
-                                        {'user': user,
+                                        {'user': revUser.get_user(),
                                          'milestone': revengeMilestone,
                                          })
         text_content = strip_tags(html_content)
@@ -71,11 +67,13 @@ def add_milestone(request):
 #TODO: search_friend y search_my_friend could be merged
 @login_required
 def search_friend(request):
+    user = request.user
     jsonresponse = {'response': "error",
                     'friends': []}
     if 'searchFriend' in request.POST:
         searchFriend = request.POST.get("searchFriend")
-        SF = User.objects.filter(username__contains=searchFriend).order_by('-username')
+        SF = User.objects.filter(Q(username__icontains=searchFriend),
+                                 ~Q(id=user.id)).order_by('-username')
         #import ipdb; ipdb.set_trace()
         jsonresponse = {
              'response': True,
@@ -102,7 +100,9 @@ def search_my_friend(request):
                     'friends': []}
     if 'searchFriend' in request.POST:
         searchFriend = request.POST.get("searchFriend")
-        SF = User.objects.filter(username__contains=searchFriend, friends=user).order_by('-username')
+        SF = User.objects.filter(Q(username__icontains=searchFriend),
+                                 ~Q(id=user.id),
+                                 Q(friends=user)).order_by('-username')
         #import ipdb; ipdb.set_trace()
         jsonresponse = {
              'response': True,

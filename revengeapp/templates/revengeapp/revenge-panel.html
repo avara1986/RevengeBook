@@ -8,14 +8,6 @@
 				<form role="form" id="formRevengeMiltestone" name="formRevengeMiltestone" action="" method="POST">
 					{% csrf_token %}
 					<input type="hidden" name="owner" id="owner" value="{{ user.id }}">
-					<input type="hidden" name="title" id="title" value="">
-					<!--
-					<div class="form-group">
-						<label for="exampleInputEmail1">Title</label>
-						<input type="text" class="form-control required" name="title" id="title" placeholder="I'm wathing you!" required>
-						{{ formRevengeMiltestone.title.errors }}
-					</div>
-					-->
 					<div class="form-group">
 						<label for="exampleInputPassword1">Categorías</label>
 						<select class="form-control required" name="cat" id="cat" placeholder="Seleccione..." required>
@@ -25,15 +17,6 @@
 						</select>
 						{{ formRevengeMiltestone.point.errors }}
 					</div>					
-					<div class="form-group">
-						<label for="exampleInputPassword1">Tipo de venganza</label>
-						<select class="form-control required" name="point" id="point" placeholder="Seleccione...">
-							{% for point in revPoints %}
-								<option value="{{ point.id }}">{{ point.title }}</option>
-							{% endfor %}
-						</select>
-						{{ formRevengeMiltestone.point.errors }}
-					</div>	
 					<div class="form-group">
 						<label for="exampleInputPassword1">Affected/friend</label>
 						<div class="input-group">
@@ -45,7 +28,6 @@
 								</div>
 								<ul class="dropdown-menu pull-right" id="searchFriendFormRevengeMenu">
 									{% for friend in friendsList %}
-										<li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
 									{% endfor %}
 								</ul>
 							</div>

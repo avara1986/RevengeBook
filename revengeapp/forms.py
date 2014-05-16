@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import ugettext_lazy as _
 
-from revengeapp.models import User, revengeMilestone, revengePoint
+from revengeapp.models import User, revengeMilestone
 
 
 class RevengeUserCreationForm(UserCreationForm):

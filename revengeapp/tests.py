@@ -3,6 +3,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client
 
+from revengeapp.models import revengeLvl
+
 
 class RevengeBookTestCase(TestCase):
 
@@ -15,6 +17,7 @@ class RevengeBookTestCase(TestCase):
         user, is_created = User.objects.get_or_create(username=username)
         if is_created:
             user.set_password(password)
+            user.level = revengeLvl.objects.get(id=1)
             user.save()
         return user
 
@@ -22,6 +25,18 @@ class RevengeBookTestCase(TestCase):
         User = get_user_model()
         user = User.objects.get(username=username)
         user.delete()
+
+    def create_lvl(self):
+        lvl, is_created = revengeLvl.objects.get_or_create(id=1)
+        if is_created:
+            lvl.title = "Test lvl"
+            lvl.points = 7
+            lvl.save()
+        return lvl
+
+    def delete_lvl(self):
+        lvl = revengeLvl.objects.get(id=1)
+        lvl.delete()
 
     def login(self, username, password):
         is_login = self.client.login(username=username, password=password)
@@ -70,6 +85,7 @@ class RevengeBookTestCase(TestCase):
     def test_get_200_with_login(self):
         User = get_user_model()
         username = password = 'user1'
+        self.create_lvl()
         user1 = self.create_user(username, password)
         self.login(username, password)
         # revengepanel view
@@ -94,6 +110,7 @@ class RevengeBookTestCase(TestCase):
         self.assertEqual(search_friend_res.status_code, 302)
 
         self.delete_user(username)
+        self.delete_lvl()
         self.assertEqual(User.objects.filter(username=username).count(), 0)
 
     def test_post_forms_sign_up(self):
@@ -113,10 +130,10 @@ class RevengeBookTestCase(TestCase):
         sign_out_url = reverse('sign_out')
         sign_out_res = self.client.get(sign_out_url)
         self.assertEqual(sign_out_res.status_code, 302)
-        self.delete_user(username)
 
     def test_post_forms_sign_in(self):
         username = password = 'user1'
+        self.create_lvl()
         self.create_user(username, password)
         # index view
         index_url = reverse('index')
@@ -124,10 +141,12 @@ class RevengeBookTestCase(TestCase):
                                                  'password': password})
         self.assertEqual(index_res.status_code, 302)
         self.delete_user(username)
+        self.delete_lvl()
 
     def test_add_search_friends(self):
         User = get_user_model()
         username = password = 'user1'
+        self.create_lvl()
         user1 = self.create_user(username, password)
         self.login(username, password)
         # add_friend view
@@ -140,9 +159,11 @@ class RevengeBookTestCase(TestCase):
         self.assertEqual(search_friend_res.status_code, 200)
 
         self.delete_user(username)
+        self.delete_lvl()
         self.assertEqual(User.objects.filter(username=username).count(), 0)
 
     def test_friends(self):
+        self.create_lvl()
         user1 = self.create_user('user1', 'user1')
         user2 = self.create_user('user2', 'user3')
         user3 = self.create_user('user3', 'user3')
@@ -154,3 +175,4 @@ class RevengeBookTestCase(TestCase):
         self.delete_user('user1')
         self.delete_user('user2')
         self.delete_user('user3')
+        self.delete_lvl()

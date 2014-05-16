@@ -50,7 +50,6 @@
             <div class="navbar-collapse collapse">
             {% if user.is_authenticated %}
                 <ul class="nav navbar-nav">
-                    <li><a href="{% url 'RevengePanel' %}"><span class="glyphicon glyphicon-home"></span> My panel</a></li>
                     <li class="dropdown" >
                     	<div id="searchFriendNavBarShow" >
 							<form id="formSearchFriend" method="POST" action="{% url 'searchFriend' %}" class="navbar-form navbar-left" role="search">
@@ -67,13 +66,15 @@
 					</li>
 				</ul>
 				<ul class="dropdown nav navbar-nav navbar-right">
+					<li><a href="{% url 'RevengePanel' %}" class="btn btn-link"><span class="glyphicon glyphicon-home"></span> My panel</a></li>
 					<li class="dropdown" >
 						<a class="btn btn-link dropdown-toggle" data-toggle="dropdown">
 							{{ user.username }} <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="{% url 'sign_out' %}"><span class="glyphicon glyphicon-user"></span> My profile</a></li>
-							<li><a href="{% url 'sign_out' %}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+							<li><a href="{% url 'see_profile' user.id %}"><span class="glyphicon glyphicon-user"></span> Mi Perfil</a></li>
+							<li><a href="{% url 'revenge_panel_history' %}"><span class="glyphicon glyphicon-user"></span> Historial de puntos</a></li>
+							<li><a href="{% url 'sign_out' %}"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
 						</ul>
 					</li>
 				</ul>
