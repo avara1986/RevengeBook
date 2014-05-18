@@ -58,8 +58,8 @@
 			</div>
 			<div class="panel-footer">
 				<div class="btn-group">
-					<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-thumbs-up"></i> Validar</a></button>
-					<button type="button" class="btn btn-default">Devolver</button>
+					{% if milestone.validate %}<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-thumbs-up"></i> Validar</a></button>{% endif %}
+					{% if milestone.returnRevenge %}<button type="button" class="btn btn-default">Devolver</button>{% endif %}
 					<button type="button" class="btn btn-default">Denunciar</button>
 				</div>	
 				<span class="label label-info" style="float:right; margin-top:10px" >{{ milestone.milestone_date }}</span>

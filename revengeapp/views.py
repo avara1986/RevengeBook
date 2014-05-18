@@ -120,12 +120,22 @@ def see_profile(request, idfriend):
     friend.exp_percet = (float(friend.experience_actual) / float(friend.level.points)) * 100
     #import ipdb; ipdb.set_trace()
     for milestone in milestones:
+        milestone.tome = False
+        milestone.validate = True
+        milestone.returnRevenge = True
+
         if milestone.owner == friend:
             milestone.tome = True
             milestone.route = 'Para'
         else:
-            milestone.tome = False
             milestone.route = 'De'
+
+        if milestone.owner == request.user:
+            milestone.validate = False
+            milestone.returnRevenge = False
+
+        if milestone.affected == request.user:
+            milestone.validate = False
 
     totalMilestonesSend = revengeMilestone.objects.filter(owner=friend).count()
     totalMilestonesReveived = revengeMilestone.objects.filter(affected=friend).count()

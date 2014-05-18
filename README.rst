@@ -43,11 +43,13 @@ Lunch virtual env:
 Export Data:
 
 ::
+
 	python manage.py dumpdata --indent=2 > data_initial.json
 	
 Load Data:
 
 ::
+
 	python manage.py loaddata data_initial.json
 	
 Executing the test
@@ -88,11 +90,17 @@ Requirements
 ============
 
 ::
+
 	argparse (1.2.1)
+	
 	Django (1.6.5)
+	
 	Pillow (2.4.0)
+	
 	pip (1.5.5)
+	
 	setuptools (3.4.4)
+	
 	wsgiref (0.1.2)
 
 
