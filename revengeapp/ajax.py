@@ -8,8 +8,8 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.simplejson import dumps, loads, JSONEncoder
 
-from revengeapp.experience import revengeUser
-from revengeapp.forms import RevengeMilestoneForm
+from revengeusers.views import revengeUser
+from milestones.forms import RevengeMilestoneForm
 from revengeapp.models import User, revengeMilestone
 from revengeBook import settings
 

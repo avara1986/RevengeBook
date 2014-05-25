@@ -1,4 +1,4 @@
-from revengeapp.models import revengeCat
+from milestones.models import revengeCat
 
 
 def get_revenge_points(request):

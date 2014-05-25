@@ -1,0 +1,42 @@
+[
+{
+  "pk": 1, 
+  "model": "milestones.revengecat", 
+  "fields": {
+    "image": "", 
+    "title": "Trabajo"
+  }
+},
+{
+  "pk": 2, 
+  "model": "milestones.revengecat", 
+  "fields": {
+    "image": "", 
+    "title": "Pareja"
+  }
+},
+{
+  "pk": 3, 
+  "model": "milestones.revengecat", 
+  "fields": {
+    "image": "", 
+    "title": "Clase"
+  }
+},
+{
+  "pk": 4, 
+  "model": "milestones.revengecat", 
+  "fields": {
+    "image": "", 
+    "title": "Amigos"
+  }
+},
+{
+  "pk": 5, 
+  "model": "milestones.revengecat", 
+  "fields": {
+    "image": "", 
+    "title": "Familia"
+  }
+}
+]

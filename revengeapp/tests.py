@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client
 
-from revengeapp.models import revengeLvl
+from revengeusers.models import revengeLvl
 
 
 class RevengeBookTestCase(TestCase):

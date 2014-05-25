@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from revengeapp.views import MilestoneListView
+
 
 ajax_urlpatterns = patterns('revengeapp.ajax',
     url(r'^search-friends/$', 'search_friend', name='search_friend_ajax'),
@@ -11,7 +11,6 @@ views_urlpatterns = patterns('revengeapp.views',
     url(r'^$', 'index', name='index'),
     url(r'^add-friend/$', 'add_friend', name='add_friend'),
     url(r'^profile/(?P<idfriend>[0-9]{0,15})/$', 'see_profile', name='see_profile'),
-    url(r'^milestones/(?P<idfriend>[0-9]{0,15})/$', MilestoneListView.as_view(), name='see_profile2'),
     url(r'^revenge-panel/$', 'revenge_panel', name='RevengePanel'),
     url(r'^revenge-panel/history_points/$', 'revenge_panel_history', name='revenge_panel_history'),
     url(r'^search-friend/$', 'search_friend', name='searchFriend'),

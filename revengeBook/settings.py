@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'revengeapp',
+    'revengeusers',
+    'milestones'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -93,7 +95,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'revengeapp/media')
 
 MEDIA_URL = '/media/'
 
-AUTH_USER_MODEL = 'revengeapp.User'
+AUTH_USER_MODEL = 'revengeusers.User'
 
 LOGIN_URL = '/'
 
@@ -106,7 +108,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
 #    'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
-    'revengeapp.context_processors.get_revenge_points',
+    'milestones.context_processors.get_revenge_points',
 )
 
 #MAIL. YOU MUST ADD YOUR CONNECTION
