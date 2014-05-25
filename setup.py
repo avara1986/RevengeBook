@@ -13,7 +13,7 @@ setup(
     name="revengeBook",
     version="0.1.1",
     author="Alberto Vara",
-    author_email="goinnn@gmail.com",
+    author_email="a.vara.1986@gmail.com",
     description="Django socialwebiste",
     long_description=(read('README.rst') + '\n\n' + read('CHANGES.rst')),
     classifiers=[

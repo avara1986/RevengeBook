@@ -49,9 +49,9 @@ function addMilestone(){
     	.success(function(data) {
     		console.log(data.response)
     		if(data.response==true) {
-    			window.location.replace(window.location.href+'?result_add_milestone=ok');
+    			/*window.location.replace(window.location.href+'?result_add_milestone=ok');*/
     			// TODO
-    			// Reload Milestone list layer by AJAX
+    			getMilestones('milestones_list',$('#idFriendProfile').val());
     		}
     	})
     	.fail(function() { console.log("lookup error"); });
@@ -160,6 +160,19 @@ function sendFriendRequest(friendId){
 	})
 	.fail(function() { console.log("lookup error"); });
 	return false;
+}
+
+function getMilestones(layer,idFriend){
+	$('#'+layer).html('<h1>Cargando, por favor, espere....</h1>');
+    	$.ajax('/milestones/'+idFriend, {
+	    	type: 'GET',
+	    	dataType: 'html'
+    	})
+    	.success(function(data) {
+    			$('#'+layer).html(data);
+    	})
+    	.fail(function() { console.log("lookup error"); });
+    return false;
 }
 /**
  * Aux functions to validate Form fields

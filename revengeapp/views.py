@@ -11,6 +11,39 @@ from django.utils.translation import ugettext as _
 from revengeapp.forms import SignInForm, SignUpForm
 from revengeapp.models import revengeCat, revengeExpLog, revengeMilestone, User
 # Create your views here.
+from django.views.generic.list import ListView
+
+
+class MilestoneListView(ListView):
+    model = revengeMilestone
+    template_name = "revengeapp/milestones.html"
+    context_object_name = 'milestones'
+
+    def get_queryset(self):
+        #import ipdb; ipdb.set_trace()
+        return revengeMilestone.objects.filter(Q(owner=self.kwargs['idfriend']) | Q(affected=self.kwargs['idfriend'])).order_by('-milestone_date')
+
+    def get_context_data(self, **kwargs):
+        context = super(MilestoneListView, self).get_context_data(**kwargs)
+        #import ipdb; ipdb.set_trace()
+        for milestone in context['milestones']:
+            milestone.tome = False
+            milestone.validate = True
+            milestone.returnRevenge = True
+
+            if str(milestone.owner.pk) == self.kwargs['idfriend']:
+                milestone.tome = True
+                milestone.route = 'Para'
+            else:
+                milestone.route = 'De'
+
+            if milestone.owner == self.request.user:
+                milestone.validate = False
+                milestone.returnRevenge = False
+
+            if milestone.affected == self.request.user:
+                milestone.validate = False
+        return context
 
 
 def add_friend(request):
@@ -89,6 +122,7 @@ def revenge_panel(request):
                                },
                               context_instance=RequestContext(request))
 
+
 @login_required
 def revenge_panel_history(request):
     user = request.user
@@ -97,6 +131,7 @@ def revenge_panel_history(request):
                                'logs': logs,
                                },
                               context_instance=RequestContext(request))
+
 
 @login_required
 def search_friend(request):
@@ -116,44 +151,26 @@ def see_profile(request, idfriend):
     if len(idfriend) == 0:
         return HttpResponseRedirect(reverse('RevengePanel'))
     friend = User.objects.get(id=idfriend)
-    milestones = revengeMilestone.objects.filter(Q(owner=friend) | Q(affected=friend)).order_by('-milestone_date')
     friend.exp_percet = (float(friend.experience_actual) / float(friend.level.points)) * 100
-    #import ipdb; ipdb.set_trace()
-    for milestone in milestones:
-        milestone.tome = False
-        milestone.validate = True
-        milestone.returnRevenge = True
-
-        if milestone.owner == friend:
-            milestone.tome = True
-            milestone.route = 'Para'
-        else:
-            milestone.route = 'De'
-
-        if milestone.owner == request.user:
-            milestone.validate = False
-            milestone.returnRevenge = False
-
-        if milestone.affected == request.user:
-            milestone.validate = False
 
     totalMilestonesSend = revengeMilestone.objects.filter(owner=friend).count()
     totalMilestonesReveived = revengeMilestone.objects.filter(affected=friend).count()
 
     revCats = revengeCat.objects.all()
+    #import ipdb; ipdb.set_trace()
     milestonesMax = 0
     for cat in revCats:
         cat.milestones = revengeMilestone.objects.filter(Q(affected=friend), Q(cat=cat)).count()
         if milestonesMax < cat.milestones:
             milestonesMax = cat.milestones
+    
     for cat in revCats:
         if milestonesMax > 0:
-            cat.milestones_percent = (float(cat.milestones) / float(milestonesMax)) * 100
+            cat.milestones_percent = int((float(cat.milestones) / float(milestonesMax)) * 100)
         else:
             cat.milestones_percent = 0
     return render_to_response('revengeapp/profile-friend.html', {
                                'friend': friend,
-                               'milestones': milestones,
                                'totalPointsCats': revCats,
                                'totalMilestonesSend': totalMilestonesSend,
                                'totalMilestonesReveived': totalMilestonesReveived,
