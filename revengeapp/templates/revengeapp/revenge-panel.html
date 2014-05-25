@@ -1,52 +1,6 @@
 ﻿{% extends "revengeapp/base.html" %}
 {% block content %}
 <div class="row ">
-	<div class="col-lg-3 col-md-3">
-		<div class="panel panel-default">
-			<div class="panel-heading">Send Revenge</div>
-			<div class="panel-body">
-				<form role="form" id="formRevengeMiltestone" name="formRevengeMiltestone" action="" method="POST">
-					{% csrf_token %}
-					<input type="hidden" name="owner" id="owner" value="{{ user.id }}">
-					<div class="form-group">
-						<label for="exampleInputPassword1">Categorías</label>
-						<select class="form-control required" name="cat" id="cat" placeholder="Seleccione..." required>
-							{% for cat in revCats %}
-								<option value="{{ cat.id }}">{{ cat.title }}</option>
-							{% endfor %}
-						</select>
-						{{ formRevengeMiltestone.point.errors }}
-					</div>					
-					<div class="form-group">
-						<label for="exampleInputPassword1">Affected/friend</label>
-						<div class="input-group">
-							<input type="hidden" name="affected" id="affected" required>
-							<input class="form-control" id="searchFriendFormRevenge" name="searchFriendFormRevenge" type="text" autocomplete="off">
-							<div class="input-group-btn">
-								<div id="searchFriendFormRevengeShow" >
-								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></button>
-								</div>
-								<ul class="dropdown-menu pull-right" id="searchFriendFormRevengeMenu">
-									{% for friend in friendsList %}
-									{% endfor %}
-								</ul>
-							</div>
-						</div>
-						{{ formRevengeMiltestone.point.errors }}
-					</div>			  
-					<div class="form-group">
-						<label for="exampleInputPassword1">Comment</label>
-						<textarea class="form-control" name="comment" id="comment" placeholder="Tu mensaje" required></textarea>
-						{{ formRevengeMiltestone.comment.errors }}
-					</div>		
-					<button type="button" id="sendMilestone" class="btn btn-default">Send revenge</button>
-					<div class="alert alert-danger" id="formErrorGeneric" style="display:none;margin-top:15px;">
-						All fields are mandatory
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 	<div class="col-lg-9 col-md-9">
 		<div class="row">
 			<div class="col-lg-12 col-md-12">
@@ -63,6 +17,52 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12 col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form role="form" id="formRevengeMiltestone" name="formRevengeMiltestone" action="" method="POST">
+							{% csrf_token %}
+							<input type="hidden" name="owner" id="owner" value="{{ user.id }}">
+							<div class="form-group col-lg-6 col-md-6">
+								<label for="exampleInputPassword1">Categorías</label>
+								<select class="form-control required" name="cat" id="cat" placeholder="Seleccione..." required>
+									{% for cat in revCats %}
+										<option value="{{ cat.id }}">{{ cat.title }}</option>
+									{% endfor %}
+								</select>
+								{{ formRevengeMiltestone.point.errors }}
+							</div>					
+							<div class="form-group col-lg-6 col-md-6">
+								<label for="exampleInputPassword1">Amigo afectado</label>
+								<div class="input-group">
+									<input type="hidden" name="affected" id="affected" required>
+									<input class="form-control" id="searchFriendFormRevenge" name="searchFriendFormRevenge" type="text" autocomplete="off">
+									<div class="input-group-btn">
+										<div id="searchFriendFormRevengeShow" >
+										<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></button>
+										</div>
+										<ul class="dropdown-menu pull-right" id="searchFriendFormRevengeMenu">
+											{% for friend in friendsList %}
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+								{{ formRevengeMiltestone.point.errors }}
+							</div>			  
+							<div class="form-group col-lg-12 col-md-12">
+								<textarea class="form-control" name="comment" id="comment" placeholder="Tu mensaje" required></textarea>
+								{{ formRevengeMiltestone.comment.errors }}
+							</div>		
+							<button type="button" id="sendMilestone" class="btn btn-default pull-right">Véngate!</button>
+							<div class="alert alert-danger" id="formErrorGeneric" style="display:none;margin-top:15px;">
+								Todos los campos son obligatorios
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12" id="milestones_list">
 			{% block revengepanel_content %}
 				{% for milestone in milestones %}
 					{% if milestone.tome %}
@@ -94,6 +94,9 @@
 			{% endblock %}
 		</div>
 	</div>
+</div>
+<div class="col-lg-3 col-md-3">
+<div style="width:100%;background:#ccc;height: 500px;padding-top: 49px;padding-left: 20px;">Banner publi</div>
 </div>
 {% endblock %}
 {% block extra_js %}

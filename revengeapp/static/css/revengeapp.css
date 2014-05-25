@@ -14,3 +14,30 @@ div.dropDownElement{
 div.dropDownElement .dropDownIcon{
 	margin-left:10px;
 }
+/*
+#167016 -->
+#0B3B0B
+#0B610B
+#088A08
+*/
+.navbar-collapse, .navbar-inverse, .navbar, .navbar .container{
+	background-color: #197C19 !important;
+	background-image: none !important;
+}
+.navbar a{
+	color: #fff !important;
+}
+.btn-primary {
+background-image: -webkit-linear-gradient(top,#146714 0,#0B610B 100%);
+background-image: linear-gradient(to bottom,#146714 0,#197C19 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#146714', endColorstr='#197C19', GradientType=0);
+filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+background-repeat: repeat-x;
+border-color: #0B610B;
+
+}
+.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary{
+	color:#fff;
+	background-color:#197C19;
+	border-color:#0B610B
+}

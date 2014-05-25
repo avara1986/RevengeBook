@@ -72,7 +72,7 @@
 							{{ user.username }} <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="{% url 'see_profile' user.id %}"><span class="glyphicon glyphicon-user"></span> Mi Perfil</a></li>
+							<li><a href="{% url 'see_profile' user.id %}"><span class="glyphicon glyphicon-user"></span> Inicio</a></li>
 							<li><a href="{% url 'revenge_panel_history' %}"><span class="glyphicon glyphicon-user"></span> Historial de puntos</a></li>
 							<li><a href="{% url 'sign_out' %}"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
 						</ul>
@@ -97,11 +97,12 @@
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
-        <script src="{{ STATIC_URL }}js/functions.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/functions.js"></script>
         {% block extra_js %}
         {% endblock %}
     {% endblock %}
+    
   </body>
 </html>
