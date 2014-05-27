@@ -118,24 +118,35 @@ def see_profile(request, idfriend):
     if len(idfriend) == 0:
         return HttpResponseRedirect(reverse('RevengePanel'))
     friend = User.objects.get(id=idfriend)
-    friend.exp_percet = (float(friend.experience_actual) / float(friend.level.points)) * 100
+    friend.exp_percet = int((float(friend.experience_actual) / float(friend.level.points)) * 100)
 
     totalMilestonesSend = revengeMilestone.objects.filter(owner=friend).count()
     totalMilestonesReveived = revengeMilestone.objects.filter(affected=friend).count()
 
     revCats = revengeCat.objects.all()
     #import ipdb; ipdb.set_trace()
-    milestonesMax = 0
+    milestones_affected_Max = 0
+    milestones_owner_Max = 0
     for cat in revCats:
-        cat.milestones = revengeMilestone.objects.filter(Q(affected=friend), Q(cat=cat)).count()
-        if milestonesMax < cat.milestones:
-            milestonesMax = cat.milestones
-    
+        cat.milestones_owner = revengeMilestone.objects.filter(Q(owner=friend), Q(cat=cat)).count()
+        if milestones_owner_Max < cat.milestones_owner:
+            milestones_owner_Max = cat.milestones_owner
+
+        cat.milestones_affected = revengeMilestone.objects.filter(Q(affected=friend), Q(cat=cat)).count()
+        if milestones_affected_Max < cat.milestones_affected:
+            milestones_affected_Max = cat.milestones_affected
+
     for cat in revCats:
-        if milestonesMax > 0:
-            cat.milestones_percent = int((float(cat.milestones) / float(milestonesMax)) * 100)
+        if milestones_owner_Max > 0:
+            cat.milestones_owner_percent = int((float(cat.milestones_owner) / float(milestones_owner_Max)) * 100)
         else:
-            cat.milestones_percent = 0
+            cat.milestones_owner_percent = 0
+
+        if milestones_affected_Max > 0:
+            cat.milestones_affected_percent = int((float(cat.milestones_affected) / float(milestones_affected_Max)) * 100)
+        else:
+            cat.milestones_affected_percent = 0
+
     return render_to_response('revengeapp/profile-friend.html', {
                                'friend': friend,
                                'totalPointsCats': revCats,

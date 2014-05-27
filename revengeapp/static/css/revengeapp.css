@@ -24,8 +24,11 @@ div.dropDownElement .dropDownIcon{
 	background-color: #197C19 !important;
 	background-image: none !important;
 }
-.navbar a{
+.navbar .navbar-header a, .navbar .btn{
 	color: #fff !important;
+}
+.navbar-nav > .open > a{
+	background-color:#0B610B !important;
 }
 .btn-primary {
 background-image: -webkit-linear-gradient(top,#146714 0,#0B610B 100%);
@@ -40,4 +43,17 @@ border-color: #0B610B;
 	color:#fff;
 	background-color:#197C19;
 	border-color:#0B610B
+}
+#revengepanel_user_profile .progress-affected{
+	padding: 0px;
+}
+#revengepanel_user_profile .progress-affected .progress{
+	border-radius: 4px 0px 0px 4px;
+}
+
+#revengepanel_user_profile .progress-owner{
+	padding: 0px;
+}
+#revengepanel_user_profile .progress-owner .progress{
+	border-radius: 0 4px 4px 0px;
 }

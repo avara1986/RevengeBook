@@ -1,12 +1,18 @@
 ﻿{% extends "revengeapp/base.html" %}
 {% block content %}
 <div class="row ">
-	<div class="col-lg-9 col-md-9">
+	<div class="col-lg-3 col-md-3">
+		<div class="row" id="revengepanel_user_profile">
+			{% block revengepanel_user_profile %}
+			{% endblock %}
+		</div>
+	</div>
+	<div class="col-lg-6 col-md-6">
 		<div class="row">
 			<div class="col-lg-12 col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-					{% block revengepanel_profile_user %}
+					{% block revengepanel_user_info %}
 						<div class="row">
 							<div id="userStatics"></div>
 						</div>
@@ -92,11 +98,12 @@
 					</div>
 				{% endfor %}
 			{% endblock %}
+			</div>
 		</div>
 	</div>
-</div>
-<div class="col-lg-3 col-md-3">
-<div style="width:100%;background:#ccc;height: 500px;padding-top: 49px;padding-left: 20px;">Banner publi</div>
+	<div class="col-lg-3 col-md-3">
+		<div style="width:100%;background:#ccc;height: 500px;padding-top: 49px;padding-left: 20px;">Banner publi</div>
+	</div>
 </div>
 {% endblock %}
 {% block extra_js %}
