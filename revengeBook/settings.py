@@ -133,9 +133,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 #MAIL
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587   # puerto 465
-EMAIL_HOST_USER = 'no-reply@gobalo.es'
-EMAIL_HOST_PASSWORD = 'G0bConBl1680'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'no-reply@gobalo.es'
+DEFAULT_FROM_EMAIL = ''
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
