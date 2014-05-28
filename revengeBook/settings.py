@@ -44,7 +44,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'revengeapp',
     'revengeusers',
-    'milestones'
+    'milestones',
+    'south'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -91,13 +92,30 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'revengeapp/media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'revengeBook', 'static'),
+)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'revengeBook', 'media')
 
 MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'revengeusers.User'
 
 LOGIN_URL = '/'
+
+# Additional locations of static files
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -114,10 +132,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 #MAIL. YOU MUST ADD YOUR CONNECTION
 #MAIL
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587   # puerto 465
+EMAIL_HOST_USER = 'no-reply@gobalo.es'
+EMAIL_HOST_PASSWORD = 'G0bConBl1680'
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = ''
+DEFAULT_FROM_EMAIL = 'no-reply@gobalo.es'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

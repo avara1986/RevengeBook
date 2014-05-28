@@ -4,7 +4,6 @@ from django.conf.urls import patterns, include, url
 ajax_urlpatterns = patterns('revengeapp.ajax',
     url(r'^search-friends/$', 'search_friend', name='search_friend_ajax'),
     url(r'^search-my-friend/$', 'search_my_friend', name='search_my_friend_ajax'),
-    url(r'^add-milestone/$', 'add_milestone', name='add_milestone_ajax'),
     url(r'^send-friend-request/$', 'send_friend_request', name='send_friend_request_ajax'),
 )
 views_urlpatterns = patterns('revengeapp.views',

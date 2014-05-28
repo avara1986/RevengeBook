@@ -7,9 +7,9 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.simplejson import dumps, loads, JSONEncoder
 
-from revengeusers.views import revengeUser
+from revengeusers.models import User
 from milestones.forms import RevengeMilestoneForm
-from revengeapp.models import User, revengeMilestone
+from revengeapp.models import revengeMilestone
 from revengeBook import settings
 
 
@@ -24,7 +24,7 @@ class DjangoJSONEncoder(JSONEncoder):
 
 @login_required
 def add_milestone(request):
-    revUser = revengeUser(request.user)
+    revUser = request.user
     jsonresponse = {'response': "error"}
     data = None
     #import ipdb; ipdb.set_trace()
@@ -34,12 +34,12 @@ def add_milestone(request):
     #import ipdb; ipdb.set_trace()
     if form.is_valid():
         friend = User.objects.get(id=request.POST.get("affected", ""))
-        revengeMilestone = form.save(user=revUser.get_user())
+        revengeMilestone = form.save(user=revUser)
         revUser.add_exp('send_milestone')
         jsonresponse = {'response': True}
         subject, from_email, to = 'Nueva venganza recibida', settings.DEFAULT_FROM_EMAIL, friend.email
-        html_content = render_to_string('revengeapp/email_sendmilestone.html',
-                                        {'user': revUser.get_user(),
+        html_content = render_to_string('milestone/email_sendmilestone.html',
+                                        {'user': revUser,
                                          'milestone': revengeMilestone,
                                          })
         text_content = strip_tags(html_content)

@@ -1,0 +1,42 @@
+[
+{
+  "pk": 1, 
+  "model": "revengeusers.revengelvl", 
+  "fields": {
+    "points": 7, 
+    "title": "Nivel 1"
+  }
+},
+{
+  "pk": 2, 
+  "model": "revengeusers.revengelvl", 
+  "fields": {
+    "points": 20, 
+    "title": "Nivel 2"
+  }
+},
+{
+  "pk": 3, 
+  "model": "revengeusers.revengelvl", 
+  "fields": {
+    "points": 90, 
+    "title": "Nivel 4"
+  }
+},
+{
+  "pk": 4, 
+  "model": "revengeusers.revengelvl", 
+  "fields": {
+    "points": 140, 
+    "title": "Nivel 5"
+  }
+},
+{
+  "pk": 5, 
+  "model": "revengeusers.revengelvl", 
+  "fields": {
+    "points": 200, 
+    "title": "Nivel 6"
+  }
+}
+]

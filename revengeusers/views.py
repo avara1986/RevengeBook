@@ -1,9 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 
-from revengeapp.models import User, revengeExpLog, revengeExpType
+from revengeapp.models import revengeExpLog, revengeExpType
 from revengeusers.models import revengeLvl
 
-
+'''
 class revengeUser(object):
     model = ""
 
@@ -76,3 +76,4 @@ class revengeUser(object):
             log.save()
         else:
             return False
+'''

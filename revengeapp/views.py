@@ -8,8 +8,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from milestones.models import revengeMilestone, revengeCat
-from revengeapp.forms import SignInForm, SignUpForm
 from revengeapp.models import revengeExpLog
+from revengeusers.forms import SignInForm, SignUpForm
 from revengeusers.models import User
 
 

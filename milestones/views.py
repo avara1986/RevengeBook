@@ -6,7 +6,7 @@ from milestones.models import revengeMilestone
 
 class MilestoneListView(ListView):
     model = revengeMilestone
-    template_name = "revengeapp/milestones.html"
+    template_name = "milestones/milestones.html"
     context_object_name = 'milestones'
 
     def get_queryset(self):
