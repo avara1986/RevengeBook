@@ -13,12 +13,20 @@ Information
 .. image:: https://coveralls.io/repos/avara1986/RevengeBook/badge.png
   :target: https://coveralls.io/r/avara1986/RevengeBook
 
+  
+.. image:: http://img.shields.io/badge/tips-$0/week-red.svg
+   :target: https://www.gittip.com/avara1986/ 
 
 RevengeBook is a Social Website based on Pitble Django Project.
 
 More info in:
 
 https://github.com/openwebinars-django/pitble
+
+.. image:: http://www.ateneagested.com/img/rb.png
+    :alt: HTTPie compared to cURL
+    :width: 835
+    :align: center
 
 Installation Basics
 ===================
@@ -91,17 +99,14 @@ Requirements
 
 ::
 
-	argparse (1.2.1)
-	
-	Django (1.6.5)
-	
-	Pillow (2.4.0)
-	
-	pip (1.5.5)
-	
-	setuptools (3.4.4)
-	
-	wsgiref (0.1.2)
+	Django==1.6.5
+	Pillow==2.4.0
+	South==0.8.4
+	argparse==1.2.1
+	ipdb==0.8
+	ipython==2.0.0
+	wsgiref==0.1.2
+
 
 
 Special Thanks
