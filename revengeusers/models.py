@@ -1,3 +1,4 @@
+# encoding: utf-8
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -14,6 +15,13 @@ class revengeLvl(models.Model):
 
     def __str__(self):
         return self.title
+
+
+PROFILE_TYPES = (
+        (1, 'Público'),
+        (2, 'Amigos'),
+        (3, 'Privado'),
+    )
 
 
 @python_2_unicode_compatible
@@ -35,10 +43,16 @@ class User(AbstractUser):
     level = models.ForeignKey(revengeLvl, verbose_name=_('Level'),
                               related_name='level_of_user',
                               null=True)
+    privacy = models.CharField(max_length=2, verbose_name=_('Privacidad'),
+                                      choices=PROFILE_TYPES,
+                                      default=1)
 
-    class Meta(AbstractUser.Meta):
-        swappable = 'AUTH_USER_MODEL'
-
+    def is_friend_of(self, friend):
+        try:
+            friend = self.objects.get(friend=friend)
+            return True
+        except self.DoesNotExist:
+            return False
 
     def get_exp_total(self):
         experience = self.experience_total
@@ -90,3 +104,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+    class Meta(AbstractUser.Meta):
+        swappable = 'AUTH_USER_MODEL'

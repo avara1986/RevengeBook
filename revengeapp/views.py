@@ -31,6 +31,20 @@ def add_friend(request):
                               context_instance=RequestContext(request))
 
 
+def configuration(request):
+    data = None
+    if request.method == 'POST':
+        data = request.POST
+    form = SignUpForm(data=data)
+    if form.is_valid():
+        user = form.save()
+        login(request, user)
+        return HttpResponseRedirect(reverse('RevengePanel'))
+    return render_to_response('revengeapp/configuration.html',
+                              {'form': form, },
+                              context_instance=RequestContext(request))
+
+
 def index(request):
     data = None
     if request.method == 'POST':
@@ -114,7 +128,7 @@ def search_friend(request):
 
 
 @login_required
-def see_profile(request, idfriend):
+def profile(request, idfriend):
     if len(idfriend) == 0:
         return HttpResponseRedirect(reverse('RevengePanel'))
     friend = User.objects.get(id=idfriend)

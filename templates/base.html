@@ -59,20 +59,19 @@
 								<button type="submit" class="btn btn-default" onclick="$('#formSearchFriend').submit()"><i class="glyphicon glyphicon-search"></i></button>
 							</form>
 						</div>
-						<ul class="dropdown-menu" id="searchFriendNavBarMenu">
-							<li><a href="{% url 'RevengePanel' %}" class="dropdown-toggle" data-toggle="dropdown">My panel</a></li>
-						</ul>
 					</li>
 				</ul>
 				<ul class="dropdown nav navbar-nav navbar-right">
-					<li><a href="{% url 'RevengePanel' %}" class="btn btn-link"><span class="glyphicon glyphicon-home"></span> My panel</a></li>
+					<li><a href="{% url 'RevengePanel' %}" class="btn btn-link"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
 					<li class="dropdown" >
 						<a class="btn btn-link dropdown-toggle" data-toggle="dropdown">
 							{{ user.username }} <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="{% url 'see_profile' user.id %}"><span class="glyphicon glyphicon-user"></span> Inicio</a></li>
+							<li><a href="{% url 'see_profile' user.id %}"><span class="glyphicon glyphicon-user"></span> Mi perfil</a></li>
 							<li><a href="{% url 'revenge_panel_history' %}"><span class="glyphicon glyphicon-user"></span> Historial de puntos</a></li>
+							<li><a href="{% url 'revenge_panel_configuration' %}"><span class="glyphicon glyphicon-user"></span> Buscar amigos</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-user"></span> Configuración</a></li>
 							<li><a href="{% url 'sign_out' %}"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
 						</ul>
 					</li>
