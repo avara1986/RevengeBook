@@ -106,6 +106,7 @@ Requirements
 	ipdb==0.8
 	ipython==2.0.0
 	wsgiref==0.1.2
+	django-allauth
 
 
 

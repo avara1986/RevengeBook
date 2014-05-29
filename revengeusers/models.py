@@ -20,8 +20,11 @@ class revengeLvl(models.Model):
 PROFILE_TYPES = (
         (1, 'Público'),
         (2, 'Amigos'),
-        (3, 'Privado'),
     )
+PROFILE_SEX = (
+        ('H', 'Hombre'),
+        ('M', 'Mujer'),
+)
 
 
 @python_2_unicode_compatible
@@ -43,9 +46,20 @@ class User(AbstractUser):
     level = models.ForeignKey(revengeLvl, verbose_name=_('Level'),
                               related_name='level_of_user',
                               null=True)
-    privacy = models.CharField(max_length=2, verbose_name=_('Privacidad'),
+    privacy = models.CharField(max_length=1, verbose_name=_('Privacidad'),
                                       choices=PROFILE_TYPES,
                                       default=1)
+    sex = models.CharField(max_length=1, verbose_name=_('Sexo'),
+                                      choices=PROFILE_SEX,
+                                      default=1)
+    state = models.CharField(max_length=130, verbose_name=_('Provincia'))
+    country = models.CharField(max_length=130, verbose_name=_('País'))
+    url_revenge = models.CharField(max_length=130, verbose_name=_('URL RB'))
+    url_fb = models.CharField(max_length=130, verbose_name=_('URL FB'))
+    url_gpus = models.CharField(max_length=130, verbose_name=_('URL G Plus'))
+    url_revenge = models.CharField(max_length=130, verbose_name=_('URL RB'))
+    about_you = models.TextField(max_length=900, verbose_name=_('Acerca de ti'))
+    alert_revengers = models.TextField(max_length=900, verbose_name=_('Aviso a vengadores'))
 
     def is_friend_of(self, friend):
         try:
