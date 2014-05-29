@@ -1,0 +1,67 @@
+[
+{
+  "pk": 1, 
+  "model": "socialaccount.socialapp", 
+  "fields": {
+    "name": "Google+", 
+    "sites": [
+      1
+    ], 
+    "secret": "4Gx0PYY47WQN0bHKd59AP7D9", 
+    "client_id": "248489588428-v6e4ittabh1lq5ids2co1t5toa495acg.apps.googleusercontent.com", 
+    "key": "", 
+    "provider": "google"
+  }
+},
+{
+  "pk": 2, 
+  "model": "socialaccount.socialapp", 
+  "fields": {
+    "name": "Facebook", 
+    "sites": [
+      1
+    ], 
+    "secret": "7b0e009b8bc23f2a5d5b2446dea6fae7", 
+    "client_id": "320472871439748", 
+    "key": "", 
+    "provider": "facebook"
+  }
+},
+{
+  "pk": 3, 
+  "model": "socialaccount.socialapp", 
+  "fields": {
+    "name": "GitHub", 
+    "sites": [
+      1
+    ], 
+    "secret": "8398597a1114b0515bf58e8df53702cdae385d71", 
+    "client_id": "3bf9c69ec1a530bd85d3", 
+    "key": "", 
+    "provider": "github"
+  }
+},
+{
+  "pk": 1, 
+  "model": "socialaccount.socialaccount", 
+  "fields": {
+    "uid": "108262913768691622319", 
+    "last_login": "2014-05-29T21:28:22.718Z", 
+    "user": 2, 
+    "provider": "google", 
+    "extra_data": "{\"picture\": \"https://lh3.googleusercontent.com/-2GdYLQx55zo/AAAAAAAAAAI/AAAAAAAAANg/nFaF1Pqown0/photo.jpg\", \"name\": \"Alberto VN\", \"family_name\": \"VN\", \"locale\": \"es\", \"gender\": \"male\", \"link\": \"https://plus.google.com/108262913768691622319\", \"given_name\": \"Alberto\", \"id\": \"108262913768691622319\"}", 
+    "date_joined": "2014-05-29T21:17:44.288Z"
+  }
+},
+{
+  "pk": 1, 
+  "model": "socialaccount.socialtoken", 
+  "fields": {
+    "app": 1, 
+    "token_secret": "", 
+    "expires_at": "2014-05-29T22:28:22.373Z", 
+    "account": 1, 
+    "token": "ya29.JQCwZQ2BSpJuZx8AAADqnOMVfZOjhHiyzGaGTrXrZW9HU6YkhuLgM0E5oIVfeA"
+  }
+}
+]

@@ -54,6 +54,13 @@ Export Data:
 
 	python manage.py dumpdata --indent=2 > data_initial.json
 	
+Export Social Accounts:
+
+::
+
+	 python manage.py dumpdata socialaccount --indent=2 > socialaccount/fixtures/data_initial.json
+
+
 Load Data:
 
 ::
@@ -103,10 +110,15 @@ Requirements
 	Pillow==2.4.0
 	South==0.8.4
 	argparse==1.2.1
+	django-allauth==0.16.1
 	ipdb==0.8
 	ipython==2.0.0
+	oauthlib==0.6.1
+	python-openid==2.2.5
+	requests==2.3.0
+	requests-oauthlib==0.4.0
 	wsgiref==0.1.2
-	django-allauth
+
 
 
 

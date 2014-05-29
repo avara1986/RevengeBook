@@ -2,6 +2,12 @@ Django==1.6.5
 Pillow==2.4.0
 South==0.8.4
 argparse==1.2.1
+django-allauth==0.16.1
+-e git://github.com/pythonforfacebook/facebook-sdk.git@e30370fa71a73129979cdd838307a37812d94d1b#egg=facebook_sdk-master
 ipdb==0.8
 ipython==2.0.0
+oauthlib==0.6.1
+python-openid==2.2.5
+requests==2.3.0
+requests-oauthlib==0.4.0
 wsgiref==0.1.2
