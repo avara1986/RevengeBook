@@ -1,25 +1,11 @@
-from django.core.mail import EmailMultiAlternatives
-from django.core.serializers import serialize
+from common.views import DjangoJSONEncoder, send_mail
 from django.contrib.auth.decorators import login_required
-from django.db.models.query import QuerySet
 from django.http import HttpResponse
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-from django.utils.simplejson import dumps, loads, JSONEncoder
+from django.utils.simplejson import dumps
 
-from revengeusers.models import User
 from milestones.forms import RevengeMilestoneForm
+from revengeusers.models import User
 from revengeapp.models import revengeMilestone
-from revengeBook import settings
-
-
-# extend simplejson to allow serializing django queryset objects directly
-# Thanks to: chriszweber. https://djangosnippets.org/snippets/2656/
-class DjangoJSONEncoder(JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, QuerySet):
-            return loads(serialize('json', obj))
-        return JSONEncoder.default(self, obj)
 
 
 @login_required
@@ -36,15 +22,12 @@ def add_milestone(request):
         friend = User.objects.get(id=request.POST.get("affected", ""))
         revengeMilestone = form.save(user=revUser)
         revUser.add_exp('send_milestone')
+        send_mail(send_mail='Nueva venganza recibida', 
+                  to=friend.email, 
+                  template='milestone/email_sendmilestone.html',
+                  params={'user': revUser,
+                         'milestone': revengeMilestone,
+                         })
         jsonresponse = {'response': True}
-        subject, from_email, to = 'Nueva venganza recibida', settings.DEFAULT_FROM_EMAIL, friend.email
-        html_content = render_to_string('milestone/email_sendmilestone.html',
-                                        {'user': revUser,
-                                         'milestone': revengeMilestone,
-                                         })
-        text_content = strip_tags(html_content)
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
     json = dumps(jsonresponse, cls=DjangoJSONEncoder)
     return HttpResponse(json)

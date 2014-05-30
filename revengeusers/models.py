@@ -61,6 +61,9 @@ class User(AbstractUser):
     about_you = models.TextField(max_length=900, verbose_name=_('Acerca de ti'))
     alert_revengers = models.TextField(max_length=900, verbose_name=_('Aviso a vengadores'))
 
+    class Meta(AbstractUser.Meta):
+        swappable = 'AUTH_USER_MODEL'
+
     def is_friend_of(self, friend):
         try:
             friend = self.objects.get(friend=friend)
@@ -118,6 +121,3 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
-
-    class Meta(AbstractUser.Meta):
-        swappable = 'AUTH_USER_MODEL'
