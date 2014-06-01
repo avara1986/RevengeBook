@@ -18,8 +18,8 @@ class revengeLvl(models.Model):
 
 
 PROFILE_TYPES = (
-        (1, 'Público'),
-        (2, 'Amigos'),
+        ('1', 'Público'),
+        ('2', 'Amigos'),
     )
 PROFILE_SEX = (
         ('H', 'Hombre'),
@@ -51,15 +51,26 @@ class User(AbstractUser):
                                       default=1)
     sex = models.CharField(max_length=1, verbose_name=_('Sexo'),
                                       choices=PROFILE_SEX,
-                                      default=1)
-    state = models.CharField(max_length=130, verbose_name=_('Provincia'))
-    country = models.CharField(max_length=130, verbose_name=_('País'))
-    url_revenge = models.CharField(max_length=130, verbose_name=_('URL RB'))
-    url_fb = models.CharField(max_length=130, verbose_name=_('URL FB'))
-    url_gpus = models.CharField(max_length=130, verbose_name=_('URL G Plus'))
-    url_revenge = models.CharField(max_length=130, verbose_name=_('URL RB'))
-    about_you = models.TextField(max_length=900, verbose_name=_('Acerca de ti'))
-    alert_revengers = models.TextField(max_length=900, verbose_name=_('Aviso a vengadores'))
+                                      default=1,
+                                      blank=True)
+    city = models.CharField(max_length=130, verbose_name=_('Ciudad'),
+                                    blank=True)
+    state = models.CharField(max_length=130, verbose_name=_('Provincia'),
+                                    blank=True)
+    country = models.CharField(max_length=130, verbose_name=_('País'),
+                                    blank=True)
+    url_twitter = models.CharField(max_length=130, verbose_name=_('URL Twitter'),
+                                    blank=True)
+    url_fb = models.CharField(max_length=130, verbose_name=_('URL FB'),
+                                    blank=True)
+    url_gpus = models.CharField(max_length=130, verbose_name=_('URL G Plus'),
+                                    blank=True)
+    url_revenge = models.CharField(max_length=130, verbose_name=_('URL RB'),
+                                    blank=True)
+    about_you = models.TextField(max_length=900, verbose_name=_('Acerca de ti'),
+                                    blank=True)
+    alert_revengers = models.TextField(max_length=900, verbose_name=_('Aviso a vengadores'),
+                                    blank=True)
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'

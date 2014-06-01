@@ -1,8 +1,14 @@
+# encoding: utf-8
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from revengeusers.models import User
+
+PRIVACY_TYPES = (
+        (1, 'Público'),
+        (2, 'Amigos'),
+    )
 
 
 @python_2_unicode_compatible
@@ -30,6 +36,9 @@ class revengeMilestone(models.Model):
                           related_name=_('milestone_contrattack'),
                           null=True,
                           blank=True)
+    privacy = models.CharField(max_length=1, verbose_name=_('Privacidad'),
+                                      choices=PRIVACY_TYPES,
+                                      default=1)
 
     def __str__(self):
         return u'De: %s Para: %s El %s' % (self.owner.username,

@@ -64,6 +64,26 @@ $('#sendMilestone').click(function() {
 	addMilestone();
 });
 
+function checkSignUp(){
+	var _data = getFields('formSignUp');
+	$('#formErrorGeneric').css('display','none');
+    if(_data!=null){
+    	$('#formSignUp').submit();
+    }else{
+    	$('#formErrorGeneric').css('display','block');
+    }
+    return false;
+}
+function checkConfiguration(){
+	var _data = getFields('formConfiguration');
+	$('#formErrorGeneric').css('display','none');
+    if(_data!=null){
+    	$('#formConfiguration').submit();
+    }else{
+    	$('#formErrorGeneric').css('display','block');
+    }
+    return false;
+}
 
 function searchFriend(sectionLoad){
 	var searchFriend = $('#'+sectionLoad).val();
@@ -174,6 +194,16 @@ function getMilestones(layer,idFriend){
     	.fail(function() { console.log("lookup error"); });
     return false;
 }
+
+function showProfileSection(section){
+	$('#milestones_list').css('display','none');
+	$('#button_milestones_list').removeClass('btn-primary').addClass('btn-default');
+	$('#profile_info').css('display','none');
+	$('#button_profile_info').removeClass('btn-primary').addClass('btn-default');
+	$('#'+section).css('display','block');
+	$('#button_'+section).addClass('btn-primary');
+}
+
 /**
  * Aux functions to validate Form fields
  * 

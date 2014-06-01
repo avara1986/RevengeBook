@@ -57,3 +57,8 @@ border-color: #0B610B;
 #revengepanel_user_profile .progress-owner .progress{
 	border-radius: 0 4px 4px 0px;
 }
+.messages{
+    list-style: none outside none;
+    padding-left: 0;
+    position: relative;
+}

@@ -50,13 +50,38 @@
 		</div>
 		<div class="col-lg-12 col-md-12 col-sd-12 ">
 			<div class="btn-group pull-right">
-				<button type="button" class="btn btn-default">Venganzas</button>
-				<button type="button" class="btn btn-default">Información</button>
+				<button type="button" class="btn btn-primary" id="button_milestones_list" onclick="showProfileSection('milestones_list'); return false;">Venganzas</button>
+				<button type="button" class="btn btn-default" id="button_profile_info" onclick="showProfileSection('profile_info'); return false;">Información</button>
 				<button type="button" class="btn btn-default">Enviar mensaje</button>
 				<button type="button" class="btn btn-default" onclick="sendFriendRequest('{{ friend.pk }}')">Añadir amigo</button>
 			</div>
 		</div>
 	</div>
+{% endblock %}
+{% block revengepanel_user_info_detail %}
+	<dl>
+		<dt>Aviso:</dt>
+		<dd>{{ friend.alert_revengers }}</dd>
+		<dt>Sobre mi:</dt>
+		<dd>{{ friend.about_you }}</dd>
+	</dl>
+	<dl class="dl-horizontal">
+		<dt>Sexo:</dt>
+		<dd>{{ friend.sex }}</dd>
+		<dt>Ciudad:</dt>
+		<dd>{{ friend.city }}</dd>
+		<dt>Estado/provincia:</dt>
+		<dd>{{ friend.state }}</dd>
+		<dt>País:</dt>
+		<dd>{{ friend.country }}</dd>
+		<dt>Perfíl Google+:</dt>
+		<dd>{{ friend.url_gpus }}</dd>
+		<dt>Pefíl Twitter:</dt>
+		<dd>{{ friend.url_twitter }}</dd>
+		<dt>Perfíl Facebook:</dt>
+		<dd>{{ friend.url_fb }}</dd>	
+		
+	</dl>
 {% endblock %}
 {% block extra_js %}
 	<script type="text/javascript">

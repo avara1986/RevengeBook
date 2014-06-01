@@ -1,5 +1,7 @@
 # encoding: utf-8
 from datetime import date
+
+from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -9,7 +11,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from milestones.models import revengeMilestone, revengeCat
 from revengeapp.models import revengeExpLog
-from revengeusers.forms import SignInForm, SignUpForm
+from revengeusers.forms import ConfigurationForm, SignInForm, SignUpForm
 from revengeusers.models import User
 
 
@@ -32,14 +34,15 @@ def add_friend(request):
 
 
 def configuration(request):
-    data = None
+    form = None
     if request.method == 'POST':
-        data = request.POST
-    form = SignUpForm(data=data)
-    if form.is_valid():
-        user = form.save()
-        login(request, user)
-        return HttpResponseRedirect(reverse('RevengePanel'))
+        form = ConfigurationForm(data=request.POST, user=request.user, files=request.FILES)
+        if form.is_valid():
+            user = form.save()
+            messages.add_message(request, messages.SUCCESS, 'Información actualizada correctamente', extra_tags = "alert alert-success")
+            #return HttpResponseRedirect(reverse('RevengePanel'))
+    else:
+        form = ConfigurationForm(user=request.user)
     return render_to_response('revengeapp/configuration.html',
                               {'form': form, },
                               context_instance=RequestContext(request))
@@ -81,7 +84,6 @@ def sign_up(request):
 
 @login_required
 def revenge_panel(request):
-    actualYear = date.today().year
     user = request.user
     revCats = revengeCat.objects.all()
     for cat in revCats:

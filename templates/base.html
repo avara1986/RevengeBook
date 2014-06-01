@@ -71,8 +71,8 @@
 						<ul class="dropdown-menu">
 							<li><a href="{% url 'see_profile' user.id %}"><span class="glyphicon glyphicon-user"></span> Mi perfil</a></li>
 							<li><a href="{% url 'revenge_panel_history' %}"><span class="glyphicon glyphicon-user"></span> Historial de puntos</a></li>
-							<li><a href="{% url 'revenge_panel_configuration' %}"><span class="glyphicon glyphicon-user"></span> Buscar amigos</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-user"></span> Configuración</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-user"></span> Buscar amigos</a></li>
+							<li><a href="{% url 'revenge_panel_configuration' %}"><span class="glyphicon glyphicon-user"></span> Configuración</a></li>
 							<li><a href="{% url 'sign_out' %}"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
 						</ul>
 					</li>
@@ -88,6 +88,16 @@
         </div>
     {% endblock %}
     <div class="container theme-showcase" role="main">
+		{% if messages %}
+		<ul class="messages">
+			{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+				{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+				{{ message }}
+			</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
         {% block content %}
         {% endblock %}
     </div> <!-- /container -->

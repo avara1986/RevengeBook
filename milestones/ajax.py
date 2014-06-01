@@ -4,8 +4,9 @@ from django.http import HttpResponse
 from django.utils.simplejson import dumps
 
 from milestones.forms import RevengeMilestoneForm
-from revengeusers.models import User
 from revengeapp.models import revengeMilestone
+from revengeusers.models import User
+
 
 
 @login_required
@@ -21,7 +22,6 @@ def add_milestone(request):
     if form.is_valid():
         friend = User.objects.get(id=request.POST.get("affected", ""))
         revengeMilestone = form.save(user=revUser)
-        revUser.add_exp('send_milestone')
         send_mail(send_mail='Nueva venganza recibida', 
                   to=friend.email, 
                   template='milestone/email_sendmilestone.html',

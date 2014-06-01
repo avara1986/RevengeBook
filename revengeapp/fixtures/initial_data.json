@@ -1,0 +1,65 @@
+[
+{
+  "pk": 1, 
+  "model": "revengeapp.revengeexptype", 
+  "fields": {
+    "tag": "send_milestone", 
+    "points": 5, 
+    "title": "Enviar Venganza"
+  }
+},
+{
+  "pk": 2, 
+  "model": "revengeapp.revengeexptype", 
+  "fields": {
+    "tag": "validate_milestone", 
+    "points": 1, 
+    "title": "Validar venganza"
+  }
+},
+{
+  "pk": 3, 
+  "model": "revengeapp.revengeexptype", 
+  "fields": {
+    "tag": "return_milestone", 
+    "points": 3, 
+    "title": "Devolver Venganza"
+  }
+},
+{
+  "pk": 4, 
+  "model": "revengeapp.revengeexptype", 
+  "fields": {
+    "tag": "validate_milestone_returned", 
+    "points": 2, 
+    "title": "Validar venganza devuelta"
+  }
+},
+{
+  "pk": 5, 
+  "model": "revengeapp.revengeexptype", 
+  "fields": {
+    "tag": "share_milestone", 
+    "points": 2, 
+    "title": "Compartir venganza"
+  }
+},
+{
+  "pk": 6, 
+  "model": "revengeapp.revengeexptype", 
+  "fields": {
+    "tag": "invite_friend", 
+    "points": 6, 
+    "title": "Invitar amigo"
+  }
+},
+{
+  "pk": 7, 
+  "model": "revengeapp.revengeexptype", 
+  "fields": {
+    "tag": "diary_access", 
+    "points": 1, 
+    "title": "Acceso diario"
+  }
+}
+]
