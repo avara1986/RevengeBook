@@ -6,8 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 from revengeusers.models import User
 
 PRIVACY_TYPES = (
-        (1, 'Público'),
-        (2, 'Amigos'),
+        ('0', 'Privado'),
+        ('1', 'Público'),
+        ('2', 'Amigos'),
     )
 
 

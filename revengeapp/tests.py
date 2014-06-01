@@ -115,6 +115,7 @@ class RevengeBookTestCase(TestCase):
 
     def test_post_forms_sign_up(self):
         username = password = 'user1'
+        self.create_lvl()
         # sign up view
         sign_up_url = reverse('sign_up')
         sign_up_res_error = self.client.post(sign_up_url, {'username': username,
@@ -130,6 +131,7 @@ class RevengeBookTestCase(TestCase):
         sign_out_url = reverse('sign_out')
         sign_out_res = self.client.get(sign_out_url)
         self.assertEqual(sign_out_res.status_code, 302)
+        self.delete_lvl()
 
     def test_post_forms_sign_in(self):
         username = password = 'user1'

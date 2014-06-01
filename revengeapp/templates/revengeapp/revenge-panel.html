@@ -54,12 +54,22 @@
 									</div>
 								</div>
 								{{ formRevengeMiltestone.point.errors }}
-							</div>			  
+							</div>
 							<div class="form-group col-lg-12 col-md-12">
 								<textarea class="form-control" name="comment" id="comment" placeholder="Tu mensaje" required></textarea>
 								{{ formRevengeMiltestone.comment.errors }}
-							</div>		
-							<button type="button" id="sendMilestone" class="btn btn-default pull-right">Véngate!</button>
+							</div>
+							<div class="form-group col-lg-6 col-md-6">
+								<select class="form-control required" name="privacy" id="privacy" placeholder="Seleccione..." required>
+									<option value="0">Privada</option>
+									<option value="1" selected>Pública</option>
+									<option value="2">Amigos</option>
+								</select>
+							</div>
+							<div class="form-group col-lg-6 col-md-6">
+								<button type="button" id="sendMilestone" class="btn btn-default pull-right">Véngate!</button>
+							</div>
+
 							<div class="alert alert-danger" id="formErrorGeneric" style="display:none;margin-top:15px;">
 								Todos los campos son obligatorios
 							</div>

@@ -88,19 +88,7 @@ def revenge_panel(request):
     revCats = revengeCat.objects.all()
     for cat in revCats:
         cat.milestones = revengeMilestone.objects.filter(Q(affected=user), Q(cat=cat)).order_by('-milestone_date').count()
-
-    milestones = revengeMilestone.objects.filter(Q(owner=user) | Q(affected=user)).order_by('-milestone_date')
-    #import ipdb; ipdb.set_trace()
-    for milestone in milestones:
-        if milestone.owner == user:
-            milestone.tome = True
-            milestone.route = 'Para'
-        else:
-            milestone.tome = False
-            milestone.route = 'De'
     return render_to_response('revengeapp/revenge-panel.html', {
-                               'friendsList': user.friends.all(),
-                               'milestones': milestones,
                                'totalPoints': revCats,
                                },
                               context_instance=RequestContext(request))

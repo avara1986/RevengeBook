@@ -4,7 +4,6 @@ from revengeusers.models import User
 
 
 class RevengeMilestoneForm(forms.ModelForm):
-
     class Meta:
         model = revengeMilestone
 

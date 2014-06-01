@@ -1,27 +1,32 @@
     {% for milestone in object_list %}
-		{% if milestone.tome %}
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<h3 class="panel-title"> <span class="badge">{{ milestone.cat.title }}</span> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.affected.pk %}">{{ milestone.affected.username }}</a> </h3>
+		{% if milestone.showMilestone %}
+			{% if milestone.tome %}
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title"> <span class="badge">{{ milestone.cat.title }}</span> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.affected.pk %}">{{ milestone.affected.username }}</a> </h3>
+					</div>
+			{% else %}
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<h3 class="panel-title"> <span class="badge">{{ milestone.cat.title }}</span> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.owner.pk %}">{{ milestone.owner.username }}</a></h3>
+					</div>
+				
+			{% endif %}
+				<div class="panel-body">
+					<a href="{% url 'see_profile' milestone.owner.pk %}"><img src="{{ MEDIA_URL }}{{ milestone.owner.avatar }}" style="width:95px"/></a> {{ milestone.comment }}
+					<br><br>
+					{% if milestone.showMilestone %}Mostrar {% else %}NO mostrar{% endif %}<br>
+					{{ milestone.privacy }}
 				</div>
-		{% else %}
-			<div class="panel panel-warning">
-				<div class="panel-heading">
-					<h3 class="panel-title"> <span class="badge">{{ milestone.cat.title }}</span> {{ milestone.route }}: <a href="{% url 'see_profile' milestone.owner.pk %}">{{ milestone.owner.username }}</a></h3>
+				<div class="panel-footer">
+					<div class="btn-group">
+						{% if milestone.validate %}<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-thumbs-up"></i> Validar</a></button>{% endif %}
+						{% if milestone.returnRevenge %}<button type="button" class="btn btn-default">Devolver</button>{% endif %}
+						<button type="button" class="btn btn-default">Compartir</button>
+						<button type="button" class="btn btn-default">Denunciar</button>
+					</div>	
+					<span class="label label-info" style="float:right; margin-top:10px" >{{ milestone.milestone_date }}</span>
 				</div>
-			
+			</div>
 		{% endif %}
-			<div class="panel-body">
-				<a href="{% url 'see_profile' milestone.owner.pk %}"><img src="{{ MEDIA_URL }}{{ milestone.owner.avatar }}" style="width:95px"/></a> {{ milestone.comment }}
-			</div>
-			<div class="panel-footer">
-				<div class="btn-group">
-					{% if milestone.validate %}<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-thumbs-up"></i> Validar</a></button>{% endif %}
-					{% if milestone.returnRevenge %}<button type="button" class="btn btn-default">Devolver</button>{% endif %}
-					<button type="button" class="btn btn-default">Compartir</button>
-					<button type="button" class="btn btn-default">Denunciar</button>
-				</div>	
-				<span class="label label-info" style="float:right; margin-top:10px" >{{ milestone.milestone_date }}</span>
-			</div>
-		</div>
 	{% endfor %}

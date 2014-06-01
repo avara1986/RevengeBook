@@ -22,9 +22,9 @@ def add_milestone(request):
     if form.is_valid():
         friend = User.objects.get(id=request.POST.get("affected", ""))
         revengeMilestone = form.save(user=revUser)
-        send_mail(send_mail='Nueva venganza recibida', 
-                  to=friend.email, 
-                  template='milestone/email_sendmilestone.html',
+        send_mail(subject='Nueva venganza recibida', 
+                  to=friend.email,
+                  template='milestones/email_sendmilestone.html',
                   params={'user': revUser,
                          'milestone': revengeMilestone,
                          })

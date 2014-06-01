@@ -53,7 +53,7 @@
 				<button type="button" class="btn btn-primary" id="button_milestones_list" onclick="showProfileSection('milestones_list'); return false;">Venganzas</button>
 				<button type="button" class="btn btn-default" id="button_profile_info" onclick="showProfileSection('profile_info'); return false;">Información</button>
 				<button type="button" class="btn btn-default">Enviar mensaje</button>
-				<button type="button" class="btn btn-default" onclick="sendFriendRequest('{{ friend.pk }}')">Añadir amigo</button>
+				{% ifnotequal friend.pk user.pk %}<button type="button" class="btn btn-default" onclick="sendFriendRequest('{{ friend.pk }}')">Añadir amigo</button>{% endifnotequal%}
 			</div>
 		</div>
 	</div>
