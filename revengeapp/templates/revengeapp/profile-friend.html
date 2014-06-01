@@ -86,6 +86,7 @@
 {% block extra_js %}
 	<script type="text/javascript">
 		$(document).ready (function() {
+			getMilestoneForm('block_form_sendmilestone','');
 			getMilestones('milestones_list','{{ friend.pk }}');
 		});
 	</script>

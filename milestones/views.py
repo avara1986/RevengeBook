@@ -1,8 +1,12 @@
 # encoding: utf-8
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.views.generic.list import ListView
 from milestones.models import revengeMilestone
 from revengeusers.models import User
+
 
 class MilestoneListView(ListView):
     model = revengeMilestone
@@ -11,8 +15,10 @@ class MilestoneListView(ListView):
 
     def get_queryset(self):
         #import ipdb; ipdb.set_trace()
-        return revengeMilestone.objects.filter(Q(owner=self.kwargs['idfriend'])
-               | Q(affected=self.kwargs['idfriend'])).order_by('-milestone_date')
+        return revengeMilestone.objects.filter(Q(milestone=None),
+               (Q(owner=self.kwargs['idfriend'])
+               | Q(affected=self.kwargs['idfriend']))
+                                               ).order_by('-milestone_date')
 
     def get_context_data(self, **kwargs):
         context = super(MilestoneListView, self).get_context_data(**kwargs)
@@ -43,3 +49,18 @@ class MilestoneListView(ListView):
                                                 (Q(friends=milestone.affected) | Q(friends=milestone.owner))).count() == 0:
                     milestone.showMilestone = False
         return context
+
+
+@login_required
+def milestones_form(request):
+    milestone_id = request.GET.get("milid", "")
+    milestone = None
+    is_return = False
+    if milestone_id != '':
+        milestone = revengeMilestone.objects.get(id=milestone_id)
+        is_return = True
+    return render_to_response('milestones/milestone_form.html', {
+                               'milestone': milestone,
+                               'is_return': is_return,
+                               },
+                              context_instance=RequestContext(request))

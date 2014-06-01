@@ -6,6 +6,7 @@ ajax_urlpatterns = patterns('milestones.ajax',
 )
 views_urlpatterns = patterns('milestones.views',
     url(r'^milestones/(?P<idfriend>[0-9]{0,15})/$', MilestoneListView.as_view(), name='milestones'),
+    url(r'^milestone_form/$', 'milestones_form', name='milestones_form'),
 )
 urlpatterns = patterns('',
     url(r'^', include(views_urlpatterns)),

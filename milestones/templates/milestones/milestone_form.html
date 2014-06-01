@@ -1,0 +1,62 @@
+<div class="row">
+	<div class="col-lg-12 col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form role="form" id="formRevengeMiltestone" name="formRevengeMiltestone" action="" method="POST">
+					{% csrf_token %}
+					{% if is_return %}
+					<input type="hidden" name="affected" id="owner" value="{{ milestone.affected }}">
+					<input type="hidden" name="affected" id="affected" value="{{ milestone.owner }}">
+					<input type="hidden" name="cat" id="cat" value="{{ milestone.cat }}">
+					<input type="hidden" name="cat" id="cat" value="{{ milestone.privacy }}">
+					{% else %}
+						<input type="hidden" name="owner" id="owner" value="{{ user.id }}">
+						<div class="form-group col-lg-6 col-md-6">
+							<label for="exampleInputPassword1">Categorías</label>
+							<select class="form-control required" name="cat" id="cat" placeholder="Seleccione..." required>
+								{% for cat in revCats %}
+									<option value="{{ cat.id }}">{{ cat.title }}</option>
+								{% endfor %}
+							</select>
+						</div>					
+						<div class="form-group col-lg-6 col-md-6">
+							<label for="exampleInputPassword1">Amigo afectado</label>
+							<div class="input-group">
+								<input type="hidden" name="affected" id="affected" required>
+								<input class="form-control" id="searchFriendFormRevenge" name="searchFriendFormRevenge" type="text" autocomplete="off">
+								<div class="input-group-btn">
+									<div id="searchFriendFormRevengeShow" >
+									<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></button>
+									</div>
+									<ul class="dropdown-menu pull-right" id="searchFriendFormRevengeMenu">
+										{% for friend in friendsList %}
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+					<div class="form-group col-lg-12 col-md-12">
+						<textarea class="form-control" name="comment" id="comment" placeholder="Tu mensaje" required></textarea>
+					</div>
+					{% if not is_return %}
+					<div class="form-group col-lg-6 col-md-6">
+						<select class="form-control required" name="privacy" id="privacy" placeholder="Seleccione..." required>
+							<option value="0">Privada</option>
+							<option value="1" selected>Pública</option>
+							<option value="2">Amigos</option>
+						</select>
+					</div>
+					{% endif %}
+					<div class="form-group col-lg-6 col-md-6">
+						<button type="button" id="sendMilestone" class="btn btn-default pull-right">Véngate!</button>
+					</div>
+
+					<div class="alert alert-danger" id="formErrorGeneric" style="display:none;margin-top:15px;">
+						Todos los campos son obligatorios
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

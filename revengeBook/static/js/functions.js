@@ -181,7 +181,18 @@ function sendFriendRequest(friendId){
 	.fail(function() { console.log("lookup error"); });
 	return false;
 }
-
+function getMilestoneForm(layer,milestone_id){
+	$('#'+layer).html('<h1>Cargando, por favor, espere....</h1>');
+    	$.ajax('/milestone_form/?milid='+milestone_id, {
+	    	type: 'GET',
+	    	dataType: 'html'
+    	})
+    	.success(function(data) {
+    			$('#'+layer).html(data);
+    	})
+    	.fail(function() { console.log("lookup error"); });
+    return false;
+}
 function getMilestones(layer,idFriend){
 	$('#'+layer).html('<h1>Cargando, por favor, espere....</h1>');
     	$.ajax('/milestones/'+idFriend, {
