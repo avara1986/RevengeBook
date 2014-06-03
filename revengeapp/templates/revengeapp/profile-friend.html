@@ -26,6 +26,18 @@
 				</div>
 			</div>
 			{% endfor %}
+			<div class="col-lg-12 col-md-12 col-sd-12">
+				<div class="row"> 
+					<div class="col-lg-12 col-md-12 col-sd-12" style="margin-bottom: 10px">
+						<b>Amigos:</b>
+					</div>
+					{% for friendoffriend in friends_list %}
+					<div class="col-lg-3 col-md-3 col-sd-3">
+						<a href="{% url 'see_profile' friendoffriend.id %}" alt="{{ friendoffriend.username }} ({{ friendoffriend.first_name }} {{ friendoffriend.last_name }})"><img src="{{ MEDIA_URL }}{{ friendoffriend.avatar }}" style="width:100%" alt="{{ friendoffriend.username }} ({{ friendoffriend.first_name }} {{ friendoffriend.last_name }})" title="{{ friendoffriend.username }} ({{ friendoffriend.first_name }} {{ friendoffriend.last_name }})"/></span>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}

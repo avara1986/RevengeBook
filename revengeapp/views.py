@@ -124,6 +124,8 @@ def profile(request, idfriend):
     friend = User.objects.get(id=idfriend)
     friend.exp_percet = int((float(friend.experience_actual) / float(friend.level.points)) * 100)
 
+    friends_list = User.objects.filter(Q(friends=friend))
+
     totalMilestonesSend = revengeMilestone.objects.filter(owner=friend).count()
     totalMilestonesReveived = revengeMilestone.objects.filter(affected=friend).count()
 
@@ -153,6 +155,7 @@ def profile(request, idfriend):
 
     return render_to_response('revengeapp/profile-friend.html', {
                                'friend': friend,
+                               'friends_list': friends_list,
                                'totalPointsCats': revCats,
                                'totalMilestonesSend': totalMilestonesSend,
                                'totalMilestonesReveived': totalMilestonesReveived,
