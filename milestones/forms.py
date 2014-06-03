@@ -10,6 +10,9 @@ class RevengeMilestoneForm(forms.ModelForm):
     def save(self, commit=True, user=User):
         milestone = super(RevengeMilestoneForm, self).save(commit=False)
         milestone.owner = user
-        user.add_exp('send_milestone')
+        if not  milestone.milestone:
+            user.add_exp('send_milestone')
+        else:
+            user.add_exp('return_milestone')
         if commit:
             return milestone.save()

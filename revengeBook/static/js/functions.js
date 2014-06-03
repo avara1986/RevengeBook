@@ -35,10 +35,8 @@ $(document).ajaxSend(function(event, xhr, settings) {
 		xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
 	}
 });
-
-
-function addMilestone(){
-	var _data = getFields('formRevengeMiltestone');
+function addMilestone(id_form){
+	var _data = getFields('formRevengeMiltestone_'+id_form);
 	$('#formErrorGeneric').css('display','none');
     if(_data!=null){
     	$.ajax('/kwsn/add-milestone/', {
@@ -60,10 +58,6 @@ function addMilestone(){
     }
     return false;
 }
-$('#sendMilestone').click(function() {
-	addMilestone();
-});
-
 function checkSignUp(){
 	var _data = getFields('formSignUp');
 	$('#formErrorGeneric').css('display','none');
@@ -87,7 +81,7 @@ function checkConfiguration(){
 
 function searchFriend(sectionLoad){
 	var searchFriend = $('#'+sectionLoad).val();
-	
+	console.log(sectionLoad);
 	$.ajax('/kwsn/search-friends/', {type: 'POST', data: {
 		searchFriend: searchFriend
 	}, dataType: 'json'})
@@ -121,8 +115,8 @@ $('#searchFriendNavBar').keyup(function() {
 });
 
 
-function searchMyFriend(sectionLoad){
-	var searchFriend = $('#'+sectionLoad).val();
+function searchMyFriend(id_form, sectionLoad){
+	var searchFriend = $('#formRevengeMiltestone_'+id_form+' #'+sectionLoad).val();
 	
 	$.ajax('/kwsn/search-my-friend/', {type: 'POST', data: {
 		searchFriend: searchFriend
@@ -157,9 +151,7 @@ function searchMyFriend(sectionLoad){
 	.fail(function() { console.log("lookup error"); });
 	return false;
 }
-$('#searchFriendFormRevenge').keyup(function() {
-	searchMyFriend('searchFriendFormRevenge');
-});
+
 function selectAddFriend(id,name){
 	$('#searchFriendFormRevenge').val(name);
 	$('#searchFriendFormRevengeMenu').css('display','none');

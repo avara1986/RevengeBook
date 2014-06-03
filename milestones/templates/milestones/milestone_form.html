@@ -2,13 +2,14 @@
 	<div class="col-lg-12 col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form role="form" id="formRevengeMiltestone" name="formRevengeMiltestone" action="" method="POST">
+				<form role="form" id="formRevengeMiltestone_{{ milestone.id }}_{{ milestone.affected.id }}_{{ milestone.owner.id }}" name="formRevengeMiltestone" action="" method="POST">
 					{% csrf_token %}
 					{% if is_return %}
-					<input type="hidden" name="affected" id="owner" value="{{ milestone.affected }}">
-					<input type="hidden" name="affected" id="affected" value="{{ milestone.owner }}">
-					<input type="hidden" name="cat" id="cat" value="{{ milestone.cat }}">
-					<input type="hidden" name="cat" id="cat" value="{{ milestone.privacy }}">
+					<input type="hidden" name="milestone" id="milestone" value="{{ milestone.id }}">
+					<input type="hidden" name="owner" id="owner" value="{{ milestone.affected.id }}">
+					<input type="hidden" name="affected" id="affected" value="{{ milestone.owner.id }}">
+					<input type="hidden" name="cat" id="cat" value="{{ milestone.cat.id }}">
+					<input type="hidden" name="privacy" id="privacy" value="{{ milestone.privacy }}">
 					{% else %}
 						<input type="hidden" name="owner" id="owner" value="{{ user.id }}">
 						<div class="form-group col-lg-6 col-md-6">
@@ -60,3 +61,11 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+$('#formRevengeMiltestone_{{ milestone.id }}_{{ milestone.affected.id }}_{{ milestone.owner.id }} #searchFriendFormRevenge').keyup(function() {
+	searchMyFriend('{{ milestone.id }}_{{ milestone.affected.id }}_{{ milestone.owner.id }}','searchFriendFormRevenge');
+});
+$('#formRevengeMiltestone_{{ milestone.id }}_{{ milestone.affected.id }}_{{ milestone.owner.id }} #sendMilestone').click(function() {
+	addMilestone('{{ milestone.id }}_{{ milestone.affected.id }}_{{ milestone.owner.id }}');
+});
+</script>

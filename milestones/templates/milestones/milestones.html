@@ -20,12 +20,28 @@
 				</div>
 				<div class="panel-footer">
 					<div class="btn-group">
-						{% if milestone.validate %}<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-thumbs-up"></i> Validar</a></button>{% endif %}
-						{% if milestone.returnRevenge %}<button type="button" class="btn btn-default" onclick="getMilestoneForm('milestone_returned_{{ milestone.id }}','{{ milestone.id }}');">Devolver</button>{% endif %}
+						{% if milestone.validate %}
+							<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-thumbs-up"></i> Validar</a></button>
+						{% endif %}
+						{% if milestone.returnRevenge %}
+							{% if not milestone.contrattack %}
+								<button type="button" class="btn btn-default" onclick="getMilestoneForm('milestone_returned_{{ milestone.id }}','{{ milestone.id }}');">Devolver</button>
+							{% endif %}
+						{% endif %}
 						<button type="button" class="btn btn-default">Compartir</button>
 						<button type="button" class="btn btn-default">Denunciar</button>
 					</div>	
 					<span class="label label-info" style="float:right; margin-top:10px" >{{ milestone.milestone_date }}</span>
+					{% if milestone.contrattack %}
+					<div class="row" style="margin-top:20px; margin-left: 20px;">
+						<div class="col-lg-12 col-md-12">
+							<a href="{% url 'see_profile' milestone.contrattack.owner.pk %}"><img src="{{ MEDIA_URL }}{{ milestone.contrattack.owner.avatar }}" style="width:95px"/></a> {{ milestone.contrattack.comment }}
+						</div>
+						<div class="col-lg-12 col-md-12">
+							<span class="label label-info" style="float:right; margin-top:10px" >{{ milestone.contrattack.milestone_date }}</span>
+						</div>
+					</div>
+					{% endif %}
 					<div id="milestone_returned_{{ milestone.id }}"></div>
 				</div>
 			</div>

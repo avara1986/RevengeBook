@@ -38,6 +38,10 @@ class MilestoneListView(ListView):
             if milestone.owner == self.request.user:
                 milestone.validate = False
                 milestone.returnRevenge = False
+            try:
+                milestone.contrattack = revengeMilestone.objects.get(milestone=milestone.id)
+            except revengeMilestone.DoesNotExist:
+                milestone.contrattack = False
 
             if milestone.affected == self.request.user:
                 milestone.validate = False
