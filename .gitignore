@@ -1,4 +1,6 @@
 # -- RevengeBook ----
+.coverage
+htmlcov/
 db.sqlite3
 revengeBook/settings.py
 *.pyc
