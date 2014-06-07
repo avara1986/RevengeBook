@@ -41,7 +41,7 @@
 },
 {
   "pk": 1, 
-  "model": "revengeusers.user", 
+  "model": "revengeusers.revengeUser", 
   "fields": {
     "experience_actual": 0, 
     "last_name": "", 
@@ -77,7 +77,7 @@
 },
 {
   "pk": 2, 
-  "model": "revengeusers.user", 
+  "model": "revengeusers.revengeUser", 
   "fields": {
     "experience_actual": 13, 
     "last_name": "Vara", 
@@ -114,7 +114,7 @@
 },
 {
   "pk": 3, 
-  "model": "revengeusers.user", 
+  "model": "revengeusers.revengeUser", 
   "fields": {
     "experience_actual": 0, 
     "last_name": "", 

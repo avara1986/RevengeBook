@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from revengeusers.models import User
+from revengeusers.models import revengeUser
 
 PRIVACY_TYPES = (
         ('0', 'Privado'),
@@ -25,10 +25,10 @@ class revengeCat(models.Model):
 class revengeMilestone(models.Model):
     milestone_date = models.DateTimeField(verbose_name=_("Milestone date"),
                               auto_now_add=True)
-    owner = models.ForeignKey(User, verbose_name=_('Owner'),
+    owner = models.ForeignKey(revengeUser, verbose_name=_('Owner'),
                               related_name='owner_of_milestone',
                               blank=True)
-    affected = models.ForeignKey(User, verbose_name=_('Affected'),
+    affected = models.ForeignKey(revengeUser, verbose_name=_('Affected'),
                               related_name='affected_of_milestone')
 
     comment = models.CharField(_('Comment'), max_length=250, blank=True)

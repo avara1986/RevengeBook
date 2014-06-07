@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.generic.list import ListView
 from milestones.models import revengeMilestone
-from revengeusers.models import User
+from revengeusers.models import revengeUser
 
 
 class MilestoneListView(ListView):
@@ -49,7 +49,7 @@ class MilestoneListView(ListView):
                 milestone.returnRevenge = False
                 if milestone.privacy == '0' and milestone.owner != self.request.user:
                     milestone.showMilestone = False
-                if milestone.privacy == '2' and User.objects.filter(Q(id=self.request.user.id),
+                if milestone.privacy == '2' and revengeUser.objects.filter(Q(id=self.request.user.id),
                                                 (Q(friends=milestone.affected) | Q(friends=milestone.owner))).count() == 0:
                     milestone.showMilestone = False
         return context

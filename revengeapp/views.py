@@ -12,7 +12,7 @@ from django.template import RequestContext
 from milestones.models import revengeMilestone, revengeCat
 from revengeapp.models import revengeExpLog
 from revengeusers.forms import ConfigurationForm, SignInForm, SignUpForm
-from revengeusers.models import User
+from revengeusers.models import revengeUser
 
 
 def add_friend(request):
@@ -22,7 +22,7 @@ def add_friend(request):
         idfriend = request.GET.get("friendId", "")
         if len(idfriend) == 0:
             return HttpResponseRedirect(reverse('RevengePanel'))
-        friend = User.objects.get(id=idfriend)
+        friend = revengeUser.objects.get(id=idfriend)
         friend.friends.add(user)
         friend.save()
         resultOp = True
@@ -109,7 +109,7 @@ def search_friend(request):
     searchFriend = request.POST.get("searchFriendNavBar","")
     if len(searchFriend) == 0:
         return HttpResponseRedirect(reverse('RevengePanel'))
-    friends = User.objects.filter(username__contains=searchFriend).order_by('-username')
+    friends = revengeUser.objects.filter(username__contains=searchFriend).order_by('-username')
     return render_to_response('revengeapp/search-friend.html', {
                                'searchFriend': searchFriend,
                                'searchFriendList': friends,
@@ -121,10 +121,10 @@ def search_friend(request):
 def profile(request, idfriend):
     if len(idfriend) == 0:
         return HttpResponseRedirect(reverse('RevengePanel'))
-    friend = User.objects.get(id=idfriend)
+    friend = revengeUser.objects.get(id=idfriend)
     friend.exp_percet = int((float(friend.experience_actual) / float(friend.level.points)) * 100)
 
-    friends_list = User.objects.filter(Q(friends=friend))
+    friends_list = revengeUser.objects.filter(Q(friends=friend))
 
     totalMilestonesSend = revengeMilestone.objects.filter(owner=friend).count()
     totalMilestonesReveived = revengeMilestone.objects.filter(affected=friend).count()

@@ -5,7 +5,7 @@ from django.utils.simplejson import dumps
 
 from milestones.forms import RevengeMilestoneForm
 from revengeapp.models import revengeMilestone
-from revengeusers.models import User
+from revengeusers.models import revengeUser
 
 
 
@@ -20,7 +20,7 @@ def add_milestone(request):
     form = RevengeMilestoneForm(data=data)
     #import ipdb; ipdb.set_trace()
     if form.is_valid():
-        friend = User.objects.get(id=request.POST.get("affected", ""))
+        friend = revengeUser.objects.get(id=request.POST.get("affected", ""))
         revengeMilestone = form.save(user=revUser)
         send_mail(subject='Nueva venganza recibida', 
                   to=friend.email,

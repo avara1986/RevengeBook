@@ -33,7 +33,10 @@
 					</div>
 					{% for friendoffriend in friends_list %}
 					<div class="col-lg-3 col-md-3 col-sd-3">
-						<a href="{% url 'see_profile' friendoffriend.id %}" alt="{{ friendoffriend.username }} ({{ friendoffriend.first_name }} {{ friendoffriend.last_name }})"><img src="{{ MEDIA_URL }}{{ friendoffriend.avatar }}" style="width:100%" alt="{{ friendoffriend.username }} ({{ friendoffriend.first_name }} {{ friendoffriend.last_name }})" title="{{ friendoffriend.username }} ({{ friendoffriend.first_name }} {{ friendoffriend.last_name }})"/></span>
+						<a href="{% url 'see_profile' friendoffriend.id %}" alt="{{ friendoffriend.username }} ({{ friendoffriend.first_name }} {{ friendoffriend.last_name }})">
+						<img src="{{ MEDIA_URL }}{{ friendoffriend.avatar }}" style="width:100%" alt="{{ friendoffriend.username }} ({{ friendoffriend.first_name }} {{ friendoffriend.last_name }})" title="{{ friendoffriend.username }} ({{ friendoffriend.first_name }} {{ friendoffriend.last_name }})"/>
+						</a>
+						
 					</div>
 					{% endfor %}
 				</div>

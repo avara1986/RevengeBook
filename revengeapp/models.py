@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from milestones.models import revengeMilestone
-from revengeusers.models import User
+from revengeusers.models import revengeUser
 
 
 @python_2_unicode_compatible
@@ -21,7 +21,7 @@ class revengeExpType(models.Model):
 class revengeExpLog(models.Model):
     log_date = models.DateTimeField(verbose_name=_("Action date"),
                               auto_now_add=True)
-    owner = models.ForeignKey(User, verbose_name=_('Owner'),
+    owner = models.ForeignKey(revengeUser, verbose_name=_('Owner'),
                           related_name='owner_of_action')
     type = models.ForeignKey(revengeExpType, verbose_name=_('Type action'),
                           related_name='type action',

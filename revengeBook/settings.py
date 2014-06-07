@@ -111,7 +111,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'revengeBook', 'media')
 
 MEDIA_URL = '/media/'
 
-AUTH_USER_MODEL = 'revengeusers.User'
+AUTH_USER_MODEL = 'revengeusers.revengeUser'
 
 LOGIN_URL = '/'
 
@@ -143,6 +143,12 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 #SOCIAL AUTH
 ACCOUNT_EMAIL_REQUIRED = True
 
+#ACCOUNT_SIGNUP_FORM_CLASS = "revengeusers.forms.SignUpForm"
+
+SOCIALACCOUNT_QUERY_EMAIL = ACCOUNT_EMAIL_REQUIRED
+
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
@@ -164,6 +170,11 @@ SOCIALACCOUNT_PROVIDERS = \
     }
 #MAIL. YOU MUST ADD YOUR CONNECTION
 #MAIL
-
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587   # puerto 465
+EMAIL_HOST_USER = 'no-reply@gobalo.es'
+EMAIL_HOST_PASSWORD = 'G0bConBl1680'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'no-reply@gobalo.es'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

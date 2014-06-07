@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.utils.simplejson import dumps
 
-from revengeusers.models import User
+from revengeusers.models import revengeUser
 
 
 #TODO: search_friend y search_my_friend could be merged
@@ -43,7 +43,7 @@ def search_my_friend(request):
                     'friends': []}
     if 'searchFriend' in request.POST:
         searchFriend = request.POST.get("searchFriend")
-        SF = User.objects.filter(Q(username__icontains=searchFriend),
+        SF = revengeUser.objects.filter(Q(username__icontains=searchFriend),
                                  ~Q(id=user.id),
                                  Q(friends=user)).order_by('-username')
         #import ipdb; ipdb.set_trace()
@@ -73,7 +73,7 @@ def send_friend_request(request):
     if request.method == 'POST':
         friendId = request.POST.get("friendId", "")
         if len(friendId) > 0:
-            friend = User.objects.get(id=request.POST.get("friendId", ""))
+            friend = revengeUser.objects.get(id=request.POST.get("friendId", ""))
             send_mail(send_mail='Nueva solicitud de amistad', 
                       to=friend.email, 
                       template='revengeapp/email_sendfriendrequest.html',

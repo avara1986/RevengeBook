@@ -4,8 +4,7 @@ from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
-from revengeusers.models import revengeLvl, User
-
+from revengeusers.models import revengeLvl, revengeUser
 
 class ConfigurationForm(forms.ModelForm):
 
@@ -31,8 +30,8 @@ class ConfigurationForm(forms.ModelForm):
         self.user = kwargs.pop('user')
         if self.user and not kwargs.get('instance'):
             try:
-                kwargs.update({'instance': User.objects.get(pk=self.user.pk)})
-            except User.DoesNotExist:
+                kwargs.update({'instance': revengeUser.objects.get(pk=self.user.pk)})
+            except revengeUser.DoesNotExist:
                 pass
         super(ConfigurationForm, self).__init__(*args, **kwargs)
         self.instance.user = self.user
